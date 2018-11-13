@@ -45,4 +45,4 @@
     go get github.com/nsqio/go-nsq
 
 
-5: (1)先创建一个主题，并发布100条消息
+5: 测试代码
