@@ -4,13 +4,15 @@
 
 1 ： 背景介绍
 2 ： nsq 服务介绍
+
     （1）nsqlookupd : 主要负责服务发现，负责nsqd的心跳,状态监测 。给客户端,nsqadmin提供nsqd地址与状态
     ====启动命令：nsqlookupd
 
-    （2）nsqd : 负责接收消息，存储队列和将消息发送给客户端。nsqd可以多机器部署，当你使用客户端像一个topic发送消息的时候，可以分配多个nsqd地址，
-    消息会随机的分配到各个nsqd上，nsqd优先把消息存储到内存channel中，当内存channel满了之后，则把消息写入磁盘文件。nsqd监听了2个tcp端口，
-    一个用来服务客户端，一个用来提供http的接口
+    （2）nsqd : 负责接收消息，存储队列和将消息发送给客户端。nsqd可以多机器部署，当你使用客户端像一个topic发送消息的时候，
+    可以分配多个nsqd地址，消息会随机的分配到各个nsqd上，nsqd优先把消息存储到内存channel中，当内存channel满了之后，
+    则把消息写入磁盘文件。nsqd监听了2个tcp端口，一个用来服务客户端，一个用来提供http的接口
     ====启动命令：nsqd --lookupd-tcp-address=127.0.0.1:4160
+    
     （3）nsqadmin : 是一个web管理页面
     ====启动命令：nsqadmin --lookupd-http-address=127.0.0.1:4161
     启动之后，可以通过http://127.0.0.1:4171可以访问这个管理页面
