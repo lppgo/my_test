@@ -3,6 +3,7 @@
 
 
 1 ： 背景介绍
+
 2 ： nsq 服务介绍
 
     （1）nsqlookupd : 主要负责服务发现，负责nsqd的心跳,状态监测 。给客户端,nsqadmin提供nsqd地址与状态
