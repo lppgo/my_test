@@ -20,9 +20,10 @@ var (
 )
 
 func main() {
+	//flag命令行
 	flag.StringVar(&h, "help", "", "this help")
-	flag.StringVar(&aciton, "a", "", "操作: add|del") //②
-	flag.StringVar(&filename, "f", "", "文件名：x.csv") //②
+	flag.StringVar(&aciton, "a", "", "操作: add|del") //
+	flag.StringVar(&filename, "f", "", "文件名：x.csv") //
 	flag.Parse()
 
 	if aciton != "add" && aciton != "del" {
