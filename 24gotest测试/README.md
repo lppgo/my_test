@@ -28,5 +28,6 @@ go测试原则：
 
 go test -test.bench=Benchmark_Division -count 100 -cpuprofile=cpu.profile ./
 生成cpu.profile 和 xxx.test文件
+
 3：使用go tool pprof 
 web ui可视化：go tool pprof --web 24gotest测试.test cpu.profile
