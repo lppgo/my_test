@@ -29,6 +29,8 @@ func Benchmark_TimeConsuming(b *testing.B) {
 	//...做一些初始化的工作,例如读取文件数据,数据库连接之类的,这样这些时间不影响我们测试函数本身的性能
 
 	b.StartTimer() //重新开始时间计数
+	// 或者 重置定时器
+	// b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		Division(4, 5)
 	}
