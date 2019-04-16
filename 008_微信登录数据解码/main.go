@@ -32,8 +32,8 @@ type code2Session struct {
 
 var (
 	grant_type    = "authorization_code"
-	youjia_appId  = "wx68534ac3e3065c24"
-	youjia_secret = "e2b41a338513cb069ba90ee36f8eac16"
+	youjia_appId  = "wx***065c24"
+	youjia_secret = "e2b4***f8eac16"
 )
 
 func (c code2Session) String() string {
