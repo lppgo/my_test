@@ -35,6 +35,7 @@ type Handler struct {
 func main() {
 	//初始化配置
 	config := nsq.NewConfig()
+	config.LookupdPollInterval = time.Second //设置consumer重连时间,默认是60s
 	//创建消费者
 	consumer, err := nsq.NewConsumer(topic, channel, config)
 	if err != nil {
