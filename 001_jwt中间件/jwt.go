@@ -119,6 +119,7 @@ func (j *JWT) CreateToken(claims CustomClaims) (string, error) {
 	return token.SignedString(j.SigningKey)
 }
 
+
 //-------jwt验证中间件------
 // ------登录成功（将claims转为toekn，并将token放入cookie）----
 	//  根据登录参数生成claims
