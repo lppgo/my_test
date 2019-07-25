@@ -11,6 +11,28 @@ import (
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
+//-------------日志同时输出到文件和termial-----(独立的方法)-------------------------
+func func_log2fileAndStdout() {
+	//创建日志文件
+	f, err := os.OpenFile("test.log", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	//完成后，延迟关闭
+	defer f.Close()
+	// 设置日志输出到文件
+	// 定义多个写入器
+	writers := []io.Writer{
+		f,
+		os.Stdout}
+	fileAndStdoutWriter := io.MultiWriter(writers...)
+	// 创建新的log对象
+	logger := log.New(fileAndStdoutWriter, "", log.Ldate|log.Ltime|log.Lshortfile)
+	// 使用新的log对象，写入日志内容
+	logger.Println("--> logger :  check to make sure it works")
+}
+
+//------------------------------------------------------------------------------
 
 type instance struct {
 	logger *zap.SugaredLogger
