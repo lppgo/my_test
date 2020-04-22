@@ -64,5 +64,5 @@ docker run --rm --name uwd-c -d -p 55372:55372 xxx:v1.0.0
   docker push xxxxx.com/home/uwd-i:v1.0.0
   
   // docker run -v挂载本地卷，挂载本地配置文件
-  docker run -d -p 55:55372 --name uwdcs -v /e/zoo/socket/uwd/config/config.toml:/var/mnt/uwd/config/config.toml uwd-i:v2.0.0
+  docker run --rm -d -p 55372:55372 --name uwdcs -v /e/zoo/socket/uwd/config/config.toml:/var/mnt/uwd/config/config.toml uwd-i:v2.0.0
 ```
