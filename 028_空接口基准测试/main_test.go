@@ -56,6 +56,7 @@ func Benchmark_InterfaceSwitch(b *testing.B) {
 // ------------------------------------------------------------基准测试参数说明----------------------------------------------------------
 //go test -bench=. -benchtime=5s -benchmem -run=none
 /*
+=============请求参数:
 -bench=. ：表示的是运行所有的基准测试，. 表示全部。
 
 -benchtime=5s:表示的是运行时间为5s，默认的时间是1s。
@@ -63,6 +64,13 @@ func Benchmark_InterfaceSwitch(b *testing.B) {
 -benchmem:表示显示memory的指标。
 
 -run=none:表示过滤掉单元测试，不去跑UT的cases。
+
+=============响应参数:
+BenchmarkJoinStrUseNor-8 执行的函数名称以及对应的GOMAXPROCS值。
+79888155     b.N的值
+15.5 ns/op   执行一次函数所花费的时间
+0 B/op       执行一次函数分配的内存
+0 allocs/op  执行一次函数所分配的内存次数
 */
 // ----------------------------------------------------------------------------------------------------------------------
 /*
@@ -124,4 +132,6 @@ Benchmark_RangeSliceAddr-8        348837             16696 ns/op           81920
 PASS
 ok      main_test       12.731s
 
+
+//
 */
