@@ -39,14 +39,6 @@ import (
 //	lg *zap.Logger
 //}
 
-/*
-	2: Put
-	3: Get
-	4: Lease
-	5: Op
-	6: Txn事务
-	7: Watch
-*/
 func main() {
 	fmt.Println("----------------------------1: 连接客户端---------------------------------")
 	conf := clientv3.Config{
