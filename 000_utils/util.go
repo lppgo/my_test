@@ -99,3 +99,27 @@ func IsEmpty(value interface{}) bool {
 	}
 	return false
 }
+
+
+// -----------------------------二分法对Slice进行插入排序----------------------------------------4--------------------------------
+type muxEntry struct {
+	h       http.Handler
+	pattern string
+}
+
+func appendSorted(es []muxEntry, e muxEntry) []muxEntry {
+	n := len(es)
+	// 排序之后，进行二分搜索，若找见符合条件=true,返回index，如果不符合条件,i==n
+	i := sort.Search(n, func(i int) bool {
+		return len(es[i].pattern) < len(e.pattern) //sorted from longtest to shortest
+		//return len(es[i].pattern) > len(e.pattern)
+	})
+	if i == n {
+		return append(es, e)
+	}
+	// we now know that i points at where we want to insert
+	es = append(es, muxEntry{}) // try to grow the slice in place, any entry works.
+	copy(es[i+1:], es[i:])      // Move shorter entries down
+	es[i] = e
+	return es
+}
