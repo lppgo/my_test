@@ -71,6 +71,9 @@ BenchmarkJoinStrUseNor-8 执行的函数名称以及对应的GOMAXPROCS值。
 15.5 ns/op   执行一次函数所花费的时间
 0 B/op       执行一次函数分配的内存
 0 allocs/op  执行一次函数所分配的内存次数
+
+====>新增pprof,对内存和cpu进行pprof分析
+go test -bench=. -benchtime=5s -benchmem -memprofile memeprofile.out -cpuprofile cpuprofile.out
 */
 // ----------------------------------------------------------------------------------------------------------------------
 /*
