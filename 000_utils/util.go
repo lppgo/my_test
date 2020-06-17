@@ -1,11 +1,30 @@
 package util
 
 import (
-	"unsafe"
+	"net/http"
 	"reflect"
+	"sort"
+	"strconv"
+	"strings"
+	"time"
+	"unsafe"
 )
 
-//https://www.cnblogs.com/shuiyuejiangnan/p/9707066.html
+func init() {
+	//1: string和[]byte高效互转
+	//2: 结构体和[]byte互转
+	//3: IsEmpty()判断给的值是否为空
+	//4: 二分法对Slice进行插入排序
+	//5: 生成 len=18的SessionID
+	//6:
+	//7:
+	//8:
+	//9:
+	//10:
+	//11:
+	//12:
+}
+
 //--------------------------string和[]byte高效互转------------------------------------------1-------------------------------------
 // string高效转换为[]byte
 func Str2Bytes(s string) []byte {
@@ -40,6 +59,7 @@ func BytesToMyStruct(b []byte) *MyStruct {
 		(*reflect.SliceHeader)(unsafe.Pointer(&b)).Data,
 	))
 }
+
 // -----------------------------IsEmpty()判断给的值是否为空----------------------------------------3--------------------------------
 // IsEmpty checks whether given <value> empty.
 // It returns true if <value> is in: 0, nil, false, "", len(slice/map/chan) == 0.Or else it returns true.
@@ -100,7 +120,6 @@ func IsEmpty(value interface{}) bool {
 	return false
 }
 
-
 // -----------------------------二分法对Slice进行插入排序----------------------------------------4--------------------------------
 type muxEntry struct {
 	h       http.Handler
@@ -122,4 +141,13 @@ func appendSorted(es []muxEntry, e muxEntry) []muxEntry {
 	copy(es[i+1:], es[i:])      // Move shorter entries down
 	es[i] = e
 	return es
+}
+
+// -----------------------------生成 len=18的SessionID----------------------------------------5--------------------------------
+var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+
+// 生成 len=18的SessionID
+func GenerateSessionID() string {
+	uninxNano := time.Now().UnixNano()
+	return strings.ToUpper(strconv.FormatInt(uninxNano, 36) + Str(6))
 }
