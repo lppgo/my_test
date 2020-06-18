@@ -28,6 +28,7 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o xxx
 ```
 
 # 4. 编写Dockerfile
+>> 直接使用可执行文件
  ```Dockerfile
  FROM busybox
 
@@ -45,6 +46,24 @@ ADD ./public/ ./public/
 RUN chmod 755 ./uwd
 EXPOSE 55372
 ENTRYPOINT ["./uwd"]
+ ```
+ 
+ >> 使用源码，在docker进行build
+ ```Dockerfile
+ FROM golang:latest
+
+MAINTAINER lucas "golpp@qq.com"
+
+WORKDIR /mnt/docker
+ENV GO111MODULE=on
+ENV GOPROXY=https://goproxy.cn
+
+COPY . .
+RUN go mod download 
+RUN CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -a -v -o mmsd-server
+
+EXPOSE 8900
+ENTRYPOINT ["./mmsd-server"]
  ```
 
 # 5. docker build 构建image
