@@ -1,6 +1,8 @@
 package util
 
 import (
+	"bytes"
+	"encoding/binary"
 	"net/http"
 	"reflect"
 	"sort"
@@ -13,10 +15,10 @@ import (
 func init() {
 	//1: string和[]byte高效互转
 	//2: 结构体和[]byte互转
-	//3: IsEmpty()判断给的值是否为空
+	//3: int和[]byte互转
 	//4: 二分法对Slice进行插入排序
 	//5: 生成 len=18的SessionID
-	//6:
+	//6: IsEmpty()判断给的值是否为空
 	//7:
 	//8:
 	//9:
@@ -60,7 +62,21 @@ func BytesToMyStruct(b []byte) *MyStruct {
 	))
 }
 
-// -----------------------------IsEmpty()判断给的值是否为空----------------------------------------3--------------------------------
+//---------------------------------int和[]byte互转-------------------------------------------3------------------------------------
+func Int2Bytes(n int) []byte {
+	data := int64(n)
+	bytebuf := bytes.NewBuffer([]byte{})
+	binary.Write(bytebuf, binary.BigEndian, data)
+	return bytebuf.Bytes()
+}
+func Bytes2Int(bys []byte) int {
+	bytebuff := bytes.NewBuffer(bys)
+	var data int64
+	binary.Read(bytebuff, binary.BigEndian, &data)
+	return int(data)
+}
+
+// -----------------------------IsEmpty()判断给的值是否为空----------------------------------------6--------------------------------
 // IsEmpty checks whether given <value> empty.
 // It returns true if <value> is in: 0, nil, false, "", len(slice/map/chan) == 0.Or else it returns true.
 func IsEmpty(value interface{}) bool {
