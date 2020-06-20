@@ -1,4 +1,16 @@
 [TOC]
+```go
+1: Slice
+2: copy()函数
+3: int和[]byte互转
+4: go Generate UUID
+5: IsEmpty()判断给的值是否为空
+6: 二分法对Slice进行插入排序
+7: RSA加密解密
+```
+
+
+
 # 二： 一些整理的题目
 
 ### 1:  Slice
