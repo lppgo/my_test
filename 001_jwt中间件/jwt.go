@@ -67,12 +67,14 @@ func NewJWT() *JWT {
 func GetSignKey() string {
 	return SignKey
 }
+
+// SetSignKey 可通过redis，etcd 在服务运行期动态修改SignKey,从而提高安全性与可靠性
 func SetSignKey(key string) string {
 	SignKey = key
 	return SignKey
 }
 
-//...
+// ParseToken 解析token
 func (j *JWT) ParseToken(tokenString string) (*CustomClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return j.SigningKey, nil
@@ -120,11 +122,10 @@ func (j *JWT) CreateToken(claims CustomClaims) (string, error) {
 	return token.SignedString(j.SigningKey)
 }
 
-
 //-------jwt验证中间件------
 // ------登录成功（将claims转为toekn，并将token放入cookie）----
-	//  根据登录参数生成claims
-	// 	jwt := middleware.NewJWT()
-	// 	token, err := jwt.CreateToken(claims)
-	// 	c.SetCookie("claims", token, 80000, "/", "", false, true)
+//  根据登录参数生成claims
+// 	jwt := middleware.NewJWT()
+// 	token, err := jwt.CreateToken(claims)
+// 	c.SetCookie("claims", token, 80000, "/", "", false, true)
 // ------在将token解析为claims------
