@@ -7,6 +7,8 @@
 5: IsEmpty()判断给的值是否为空
 6: 二分法对Slice进行插入排序
 7: RSA加密解密
+8：切片反转
+9：对Get,Post请求的封装，防止http句柄泄露
 ```
 
 
@@ -63,4 +65,101 @@ func reverse() {
 }
 ```
 
-### 
+### 9：对Get,Post请求的封装，防止http句柄泄露
+```go
+// curl 发起 get请求
+func CurlGet(uri string, timeout time.Duration) (result []byte, err error) {
+	cli := &http.Client{}
+	// 写入 uri 请求信息
+	req, err := http.NewRequest(http.MethodGet, uri, nil)
+	if err != nil {
+		err = errors.WithStack(err)
+		return
+	}
+	// 设置超时
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	req = req.WithContext(ctx)
+	// 发起请求
+	resp, err := cli.Do(req)
+	if err != nil {
+		err = errors.WithStack(err)
+		return
+	}
+	// 关闭连接
+	defer resp.Body.Close()
+	// 读取 body
+	result, err = ioutil.ReadAll(resp.Body)
+	if err != nil {
+		err = errors.WithStack(err)
+		return
+	}
+	return
+}
+// curl 支持POST form表单形式
+func CurlFormPOST(uri, token string, params map[string]interface{}, timeout time.Duration) (result []byte, err error) {
+	cli := &http.Client{}
+	values := url.Values{}
+	for k, v := range params {
+		if v != nil {
+			values.Set(k, cast.ToString(v))
+		}
+	}
+	// 写入 post 请求数据
+	req, err := http.NewRequest(http.MethodPost, uri, strings.NewReader(values.Encode()))
+	if err != nil {
+		return
+	}
+	// 设置超时
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	req = req.WithContext(ctx)
+	// 设置 header
+	req.Header.Set("ACCESS-TOKEN", token)
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	resp, err := cli.Do(req)
+	if err != nil {
+		return
+	}
+	// 必须关闭
+	defer resp.Body.Close()
+	result, err = ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+	return
+}
+// curl 支持POST json
+func CurlJsonPOST(uri, token string, params map[string]interface{}, timeout time.Duration) (result []byte, err error) {
+	cli := &http.Client{}
+	// 数据打包
+	data, err := json.Marshal(params)
+	if err != nil {
+		return
+	}
+	// 写入 post 请求数据
+	req, err := http.NewRequest(http.MethodPost, uri, bytes.NewBuffer(data))
+	if err != nil {
+		return
+	}
+	// 设置超时
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	req = req.WithContext(ctx)
+	// 设置 header
+	req.Header.Set("ACCESS-TOKEN", token)
+	req.Header.Set("Content-Type", "application/json")
+	// 发起 http 请求
+	resp, err := cli.Do(req)
+	if err != nil {
+		return
+	}
+	// 必须关闭
+	defer resp.Body.Close()
+	result, err = ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+	return
+}
+```
