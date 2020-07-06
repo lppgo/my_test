@@ -14,6 +14,13 @@ import (
 )
 
 // 测试waitgroupTimeout
+
+//errorgroup
+
+/*
+当超时时间大于任务时间时，任务可以正常完成然后退出，
+当超时时间小于任务时间时，任务没有执行完成就退出了。
+*/
 func main(){
 	const TIMEOUT=10*time.Second
 	const TASK_EXECUTE_TIME	=3*time.Second
