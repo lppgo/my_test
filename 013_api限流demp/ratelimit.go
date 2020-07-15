@@ -2,10 +2,10 @@
 package ratelime
 import (
     "go.uber.org/ratelimit"
-    “sync"
+    "sync"
 )
 
-var doorLimitMap sync.Map  （全局变量）
+var doorLimitMap sync.Map // (全局变量)
 //返回键的现有值(如果存在)，否则存储并返回给定的值，如果是读取则返回true，如果是存储返回false。
 
 func foo(){

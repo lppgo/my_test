@@ -19,7 +19,7 @@ func main() {
 
 	defer func() {
 		a = 50
-		fmt.Println("a 1 is:", a, "  str 1 is:", str)
+		fmt.Printf("a 1 is:%d ;a Addr :%d\n ; str 1 is:", str)
 		fmt.Println()
 	}()
 
