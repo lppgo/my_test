@@ -1,10 +1,10 @@
-<mxfile host="app.diagrams.net" modified="2020-07-27T06:27:56.517Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36" etag="mYAfgO-gNLVrdymzi7vr" version="13.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2020-07-27T06:28:32.310Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36" etag="9CMG0qGRRYsyat8SBmcP" version="13.5.3" type="github">
   <diagram id="YtGcmlx5MdhKh6ri9F74" name="第 1 页">
     <mxGraphModel dx="865" dy="488" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="#F1FAEE" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="OGBte0PvkTn54QuSE-R2-2" value="&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;用户层服务&lt;br&gt;（Web,H5,APP等）&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;sketch=0;strokeColor=#666666;fillColor=#f5f5f5;fontColor=#333333;" vertex="1" parent="1">
+        <mxCell id="OGBte0PvkTn54QuSE-R2-2" value="&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;用户层服务&lt;br&gt;（Web,H5,APP等）&lt;/b&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;sketch=0;strokeColor=#36393d;fillColor=#cce5ff;" vertex="1" parent="1">
           <mxGeometry x="105" y="100" width="400" height="50" as="geometry" />
         </mxCell>
         <mxCell id="OGBte0PvkTn54QuSE-R2-4" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;交易网关服务&lt;br&gt;API网关&lt;/font&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;sketch=0;strokeColor=#b85450;fillColor=#f8cecc;" vertex="1" parent="1">
