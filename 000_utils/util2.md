@@ -1,4 +1,5 @@
 [TOC]
+
 ```go
 1: Slice
 2: copy()函数
@@ -11,11 +12,9 @@
 9：对Get,Post请求的封装，防止http句柄泄露
 ```
 
-
-
 # 二： 一些整理的题目
 
-### 1:  Slice
+### 1: Slice
 
 ```go
 // 数组切片的知识点
@@ -34,7 +33,7 @@ func mySliceArray() {
 }
 ```
 
-### 2:  copy()函数
+### 2: copy()函数
 
 ```go
 func myCopy() {
@@ -45,11 +44,11 @@ func myCopy() {
 }
 ```
 
-### 3:  interface{} ，鸭子类型，简单工厂模式
+### 3: interface{} ，鸭子类型，简单工厂模式
 
-### 5:  工厂模式
+### 5: 工厂模式
 
-### 6:  值接收者和指针接收者
+### 6: 值接收者和指针接收者
 
 ### 7：数组是值类型,切片是引用类型
 
@@ -65,7 +64,8 @@ func reverse() {
 }
 ```
 
-### 9：对Get,Post请求的封装，防止http句柄泄露
+### 9：对 Get,Post 请求的封装，防止 http 句柄泄露
+
 ```go
 // curl 发起 get请求
 func CurlGet(uri string, timeout time.Duration) (result []byte, err error) {
@@ -81,13 +81,15 @@ func CurlGet(uri string, timeout time.Duration) (result []byte, err error) {
 	defer cancel()
 	req = req.WithContext(ctx)
 	// 发起请求
-	resp, err := cli.Do(req)
+    resp, err := cli.Do(req)
+    // 关闭连接
+    if resp.Body != nil {
+		defer req.Body.Close()
+	}
 	if err != nil {
 		err = errors.WithStack(err)
 		return
 	}
-	// 关闭连接
-	defer resp.Body.Close()
 	// 读取 body
 	result, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -117,12 +119,14 @@ func CurlFormPOST(uri, token string, params map[string]interface{}, timeout time
 	// 设置 header
 	req.Header.Set("ACCESS-TOKEN", token)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	resp, err := cli.Do(req)
+    resp, err := cli.Do(req)
+    // 必须关闭
+    if resp.Body != nil {
+		defer req.Body.Close()
+	}
 	if err != nil {
 		return
 	}
-	// 必须关闭
-	defer resp.Body.Close()
 	result, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return
@@ -150,12 +154,14 @@ func CurlJsonPOST(uri, token string, params map[string]interface{}, timeout time
 	req.Header.Set("ACCESS-TOKEN", token)
 	req.Header.Set("Content-Type", "application/json")
 	// 发起 http 请求
-	resp, err := cli.Do(req)
+    resp, err := cli.Do(req)
+    // 必须关闭
+    if resp.Body != nil {
+		defer req.Body.Close()
+	}
 	if err != nil {
 		return
 	}
-	// 必须关闭
-	defer resp.Body.Close()
 	result, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return
