@@ -19,17 +19,17 @@ func main() {
 
 	defer func() {
 		a = 50
-		fmt.Printf("a 1 is:%d ;a Addr :%d\n ; str 1 is:", str)
-		fmt.Println()
+		fmt.Printf("a 1 is:%d ,  a 1 Addr:%p,  str 1 is:%s\n", a, &a, str)
 	}()
 
-	defer func(aa int, ss string) {
-		fmt.Println("a 2 is:", aa, "   str 2 is:", ss)
-		fmt.Println()
+	defer func(a int, str string) {
+		fmt.Printf("a 2 is:%d ,  a 2 Addr:%p,  str 2 is:%s\n", a, &a, str)
 	}(a, str)
 
 	a = 100
 	str = "interchange交换"
+
+	fmt.Printf("a is:%d ,  a Addr:%p,  str is:%s\n", a, &a, str)
 
 	time.Sleep(time.Second * 3)
 	log.Println("===end===")
