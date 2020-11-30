@@ -40,6 +40,7 @@ func main() {
 	//注册rpc服务
 	arith := new(Arith)
 	rpc.Register(arith)
+	// rpc.RegisterName()
 
 	listen, err := net.Listen("tcp", ":1236")
 	if err != nil {
