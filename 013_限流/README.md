@@ -61,3 +61,5 @@
 
 golang 标准库库实现限流算法: golang.org/x/time/rate
 uber-go 官方库限流: github.com/uber-go/ratelimit
+
+## 4：使用原子计数器限流（sync/atomic）
