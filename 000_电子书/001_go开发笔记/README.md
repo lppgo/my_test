@@ -10,8 +10,6 @@ Golang version is V1.11.2
 
 ## Community
 
-![](https://gitee.com/jason0319/golang_development_notes/raw/master/images/qq.png)
-
 ## LICENSE
 
 BSD License <http://creativecommons.org/licenses/BSD/>
