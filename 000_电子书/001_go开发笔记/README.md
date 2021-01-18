@@ -6,13 +6,9 @@ Golang version is V1.11.2
 
 # Multiple Language Versions
 
-- [中文](/zh/preface.md)
-
-
+- [中文](zh/preface.md)
 
 ## Community
-
-
 
 ![](https://gitee.com/jason0319/golang_development_notes/raw/master/images/qq.png)
 
