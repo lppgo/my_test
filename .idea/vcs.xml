@@ -2,6 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/000_电子书/003_the-way-to-go-ZH《go语言之道》/eBook/examples/chapter_11/tideland-cgl.googlecode.com/hg" vcs="hg4idea" />
+    <mapping directory="$PROJECT_DIR$/025_micro/micro-service" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/gin-dump" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/sentinel-golang" vcs="Git" />
   </component>
