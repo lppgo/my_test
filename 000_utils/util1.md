@@ -11,6 +11,7 @@
 6: 二分法对Slice进行插入排序
 7: RSA加密解密
 8：获取远程客户端的IP,讲IPV4转uint32
+9: UTF-8和GBK转换
 ```
 
 # 一： 一些整理的函数
@@ -250,7 +251,39 @@ func UInt32ToIP(intIP uint32) net.IP {
 }
 ```
 
+### 9：UTF-8和GBK转换
+```go
+package main
 
+import (
+    "bytes"
+    "fmt"
+    "golang.org/x/text/encoding/simplifiedchinese"
+    "golang.org/x/text/transform"
+    "io/ioutil"
+)
+
+// GBK 转 UTF-8
+func GbkToUtf8(s []byte) ([]byte, error) {
+    reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder())
+    d, e := ioutil.ReadAll(reader)
+    if e != nil {
+        return nil, e
+    }
+    return d, nil
+}
+
+// UTF-8 转 GBK
+func Utf8ToGbk(s []byte) ([]byte, error) {
+    reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewEncoder())
+    d, e := ioutil.ReadAll(reader)
+    if e != nil {
+        return nil, e
+    }
+    return d, nil
+}
+
+```
 
 # 四：其他
 
