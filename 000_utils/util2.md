@@ -81,10 +81,13 @@ func CurlGet(uri string, timeout time.Duration) (result []byte, err error) {
 	defer cancel()
 	req = req.WithContext(ctx)
 	// 发起请求
-    resp, err := cli.Do(req)
-    // 关闭连接
+	resp, err := cli.Do(req)
+	// 关闭连接
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
-        err = errors.WithStack(err)
+		err = errors.WithStack(err)
 		return
 	}
 	defer resp.Body.Close()
@@ -117,11 +120,15 @@ func CurlFormPOST(uri, token string, params map[string]interface{}, timeout time
 	// 设置 header
 	req.Header.Set("ACCESS-TOKEN", token)
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-    resp, err := cli.Do(req)
+	resp, err := cli.Do(req)
+	// 关闭连接
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return
-    }
-    // 必须关闭
+	}
+	// 必须关闭
 	defer resp.Body.Close()
 	result, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -150,11 +157,15 @@ func CurlJsonPOST(uri, token string, params map[string]interface{}, timeout time
 	req.Header.Set("ACCESS-TOKEN", token)
 	req.Header.Set("Content-Type", "application/json")
 	// 发起 http 请求
-    resp, err := cli.Do(req)
+	resp, err := cli.Do(req)
+	// 关闭连接
+	if resp != nil {
+		defer resp.Body.Close()
+	}
 	if err != nil {
 		return
-    }
-    defer resp.Body.Close()
+	}
+	defer resp.Body.Close()
 	result, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return
