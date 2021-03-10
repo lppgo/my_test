@@ -11,7 +11,7 @@ import (
 // （每秒会有r个令牌放入桶中），桶中最多可以存放b个令牌。如果令牌到达时令牌桶已经满了，
 // 那么这个令牌会被丢弃；
 
-var limiter = rate.NewLimiter(10, 1)
+var limiter = rate.NewLimiter(10, 1000)
 
 // 第一个参数r:代表每秒可以向token桶中产生多少token。
 // 第二个参数b:代表 token 桶的容量大小

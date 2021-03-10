@@ -65,6 +65,22 @@ type limiter struct {
 其实我们并不需要真正去维护一个桶或者队列，这样的效率比较低, 比如golang标准库golang.org/x/time/rate，
 通过一个计数器即可完成限流。具体实现可以看下面的介绍
 
+令牌桶限流算法实现的限流库:
+    github.com/juju/ratelimit
+    golang.org/x/time/rate
+
+const Inf = Limit(math.MaxFloat64)
+type Limiter struct {
+ mu     sync.Mutex // 互斥锁
+ limit  Limit // float64的别名，用来表示每秒处理的频率
+ burst  int   // 令牌桶的最大数量，如果burst为0，并且limit == Inf，则允许处理任何事件，否则不允许
+ tokens float64 // 令牌桶中可用的令牌数
+ // last is the last time the limiter's tokens field was updated
+ last time.Time // 记录上次limiter的tokens被更新的时间
+ // lastEvent is the latest time of a rate-limited event (past or future)
+ lastEvent time.Time // lastEvent记录速率受限制(桶中没有令牌)的时间点，该时间点可能是过去的，也可能是将来的(Reservation预定的结束时间点)
+}
+
 ```
 
 golang 标准库库实现限流算法: golang.org/x/time/rate
