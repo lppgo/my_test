@@ -43,7 +43,15 @@
 
 优点: 没有了流量突刺问题
 缺点: 无法应对流量突发问题
-uber-go 官方库限流: github.com/uber-go/ratelimit
+// uber-go 官方库限流: github.com/uber-go/ratelimit
+type limiter struct {
+	sync.Mutex            // 互斥锁，控制并发的作用
+	last       time.Time  // 记录上一次的时刻
+	sleepFor   time.Duration // 距离处理下一次请求需要等待的时间
+	perRequest time.Duration // 每次请求的时间间隔
+	maxSlack   time.Duration // 最大松弛量，用来解决突发流量
+	clock      Clock // 一个时钟或模拟时钟，提供了now和sleep方法，是实例化速率限制器
+}
 ```
 
 ## 3: 令牌桶法限流 TokenBucket-limiter
