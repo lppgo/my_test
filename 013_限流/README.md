@@ -49,7 +49,7 @@ type limiter struct {
 	last       time.Time  // 记录上一次的时刻
 	sleepFor   time.Duration // 距离处理下一次请求需要等待的时间
 	perRequest time.Duration // 每次请求的时间间隔
-	maxSlack   time.Duration // 最大松弛量，用来解决突发流量
+	maxSlack   time.Duration // 最大松弛量，用来解决突发流量,负数，用来表示允许抵消的最长时间
 	clock      Clock // 一个时钟或模拟时钟，提供了now和sleep方法，是实例化速率限制器
 }
 ```
