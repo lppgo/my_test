@@ -32,7 +32,7 @@
 
 ```
 
-## 2: 漏桶法限流 counter-limiter
+## 2: 漏桶法限流 leakyBucket-limiter
 
 ```go
 还有一种漏桶算法，算法内维护一个容器，请求进来时相当于水流进容器，处理请求时相当于水从容器流出。容器有一个最大容量，
@@ -43,7 +43,7 @@
 
 优点: 没有了流量突刺问题
 缺点: 无法应对流量突发问题
-
+uber-go 官方库限流: github.com/uber-go/ratelimit
 ```
 
 ## 3: 令牌桶法限流 TokenBucket-limiter
@@ -60,6 +60,6 @@
 ```
 
 golang 标准库库实现限流算法: golang.org/x/time/rate
-uber-go 官方库限流: github.com/uber-go/ratelimit
+
 
 ## 4：使用原子计数器限流（sync/atomic）
