@@ -1,6 +1,4 @@
-
-.idea/
 *.iml
-*.idea
+*.idea/
 
-.vscode
+*.vscode/

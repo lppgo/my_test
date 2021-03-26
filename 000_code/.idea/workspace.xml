@@ -19,22 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b370704-a3f9-4db6-ab1b-0a185ac75d34" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/datastruct/001_array/array.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/001_array/array.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/002_string/string.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/002_string/string.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/003_linked_list/linked_list.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/003_linked_list/linked_list.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/003_linked_list/linked_list2.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/004_stack/stack.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/004_stack/stack.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/005_queue/005_queue.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/005_queue/005_queue.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/006_hash/006_hash.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/006_hash/006_hash.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datastruct/007_tree/007_tree.md" afterDir="false" />
-    </list>
+    <list default="true" id="0b370704-a3f9-4db6-ab1b-0a185ac75d34" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
