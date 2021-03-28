@@ -1,8 +1,23 @@
+<!-- [toc] -->
+- [通过二进制部署docker](#通过二进制部署docker)
+- [1. 安装docker 环境。配置docker desktop](#1-安装docker-环境配置docker-desktop)
+- [2. 拉取镜像](#2-拉取镜像)
+- [3. 进入go项目进行交叉编译](#3-进入go项目进行交叉编译)
+- [4. 编写Dockerfile](#4-编写dockerfile)
+  - [4.1 直接使用可执行文件](#41-直接使用可执行文件)
+  - [4.2  使用源码，在docker进行build](#42--使用源码在docker进行build)
+  - [4.3 使用分层构建(1)](#43-使用分层构建1)
+  - [4.4 使用分层构建](#44-使用分层构建)
+- [5. docker build 构建image](#5-docker-build-构建image)
+- [6. docker run 运行容器，进行测试](#6-docker-run-运行容器进行测试)
+- [7. docker push  提交image镜像](#7-docker-push--提交image镜像)
+
 # 通过二进制部署docker
 
 # 1. 安装docker 环境。配置docker desktop
 
 > Docker daemon 配置文件
+
 ```json5
 {
   //加速地址:Preferred Docker registry mirror
@@ -23,20 +38,19 @@
 # 2. 拉取镜像
 
 # 3. 进入go项目进行交叉编译
+
 ```go
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o xxx
 ```
 
 # 4. 编写Dockerfile
->> 直接使用可执行文件
+
+## 4.1 直接使用可执行文件
+
  ```Dockerfile
  FROM busybox
 
 MAINTAINER  Lucas "lucas@test.com"
-
-###############################################################################
-#                                INSTALLATION
-###############################################################################
 
 # 设置固定的项目路径
 WORKDIR /var/mnt/uwd/
@@ -47,8 +61,9 @@ RUN chmod 755 ./uwd
 EXPOSE 55372
 ENTRYPOINT ["./uwd"]
  ```
- 
- >> 使用源码，在docker进行build
+
+## 4.2  使用源码，在docker进行build
+
  ```Dockerfile
  FROM golang:latest
 
@@ -66,7 +81,10 @@ EXPOSE 8900
 ENTRYPOINT ["./mmsd-server"]
  ```
 
+## 4.3 使用分层构建(1)
+
 >> 使用临时镜像
+
 ```Dockerfile
 FROM golang:1.15.2 as builder_base
 ARG A_GOPROXY
@@ -119,16 +137,54 @@ EXPOSE 9062
 ENTRYPOINT [ "/micro" ] 
 CMD [ "service", "api" ]
 ```
+
+## 4.4 使用分层构建
+
+```Dockerfile
+FROM golang:1.15-alpine AS builder
+WORKDIR /workspace
+ENV GO111MODULE=on \
+    GOPROXY=https://goproxy.cn,direct
+
+# cache deps before building and copying source so that we don't need to re-download as much
+# and so that source changes don't invalidate our downloaded layer
+COPY go.mod go.mod
+COPY go.sum go.sum
+RUN go mod download
+
+# src code
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64  go build -o main ./cmd/server
+
+FROM alpine:3.12.0
+COPY --from=builder /workspace/main /main
+RUN chmod +x /main
+ENV TZ=Asia/Shanghai
+ENTRYPOINT ["/main"]
+```
+
+```go
+// .dockerignore 忽略无用的文件，只 COPY go build 需要的文件。
+# Ignore all files which are not go type
+!**/*.go
+!**/*.mod
+!**/*.sum
+```
+
 # 5. docker build 构建image
+
 ```json
 docker build -t xxx:v1.0.0 .
 ```
 
 # 6. docker run 运行容器，进行测试
+
 ```json
 docker run --rm --name uwd-c -d -p 55372:55372 xxx:v1.0.0
 ```
+
 # 7. docker push  提交image镜像
+
 ```json5
   docker login xxx.com
   输入用户名/密码
