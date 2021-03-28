@@ -110,35 +110,36 @@ func (l *LinkedList) Find(value int) *Node {
 
 // 单链表反转(就地逆序)
 func (l *LinkedList) Reverse_Locally() {
-	var pre *Node // 前驱节点
-	var cur *Node // 当前节点
-	next:=l.Head.Next // 后继节点
-	for next.Next!=nil{
-		cur=next.Next // 将后继节点原来的下一个节点保存到当前节点
-		next.Next=pre // 将后继节点的Next节点指向前驱节点
-		pre=next //
-		next=cur //
+	var pre *Node       // 前驱节点
+	var cur *Node       // 当前节点
+	next := l.Head.Next // 后继节点
+	for next.Next != nil {
+		cur = next.Next // 将后继节点原来的下一个节点保存到当前节点
+		next.Next = pre // 将后继节点的Next节点指向前驱节点
+		pre = next      //
+		next = cur      //
 
 	}
-	l.Head.Next=pre
+	l.Head.Next = pre
 }
 
 //
-func(l *LinkedList)Reverse_Recursion(){
+func (l *LinkedList) Reverse_Recursion() {
 
 }
+
 //
-func(l *LinkedList)Reverse_Inserted(){
-	var cur *Node // 当前节点
+func (l *LinkedList) Reverse_Inserted() {
+	var cur *Node  // 当前节点
 	var next *Node // 后继节点
 
 	cur = l.Head.Next.Next
 	// 设置第一个节点的next为nil
-	l.Head.Next.Next=nil
-	for cur !=nil{
-		next=cur.Next
-		cur.Next=l.Head.Next
-		l.Head.Next=cur
-		cur=next
+	l.Head.Next.Next = nil
+	for cur != nil {
+		next = cur.Next
+		cur.Next = l.Head.Next
+		l.Head.Next = cur
+		cur = next
 	}
 }

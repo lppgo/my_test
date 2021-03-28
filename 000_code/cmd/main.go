@@ -1,9 +1,11 @@
 package main
 
 import (
-	linkedList "github.com/lppgo/my_test/000_code/datastruct/003_linked_list"
+	"github.com/lppgo/my_test/000_code/algorithm/sort"
 )
 
 func main() {
-	linkedList.Application()
+	// linkedList.Application()
+
+	sort.Sort()
 }
