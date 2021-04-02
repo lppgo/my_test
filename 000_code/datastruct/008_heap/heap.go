@@ -39,9 +39,18 @@ func ExampleIntHeap() {
 	h := &IntHeap{2, 1, 5}
 
 	heap.Init(h)
-	fmt.Printf("heap.Init() len:%d ,IntHeap:%v\n", len(*h), h)
 	heap.Push(h, 3)
 	heap.Push(h, 4)
+	fmt.Printf("heap.Init() len:%d ,IntHeap:%v\n", len(*h), h)
+
+	// // 进行堆排序 heapSort. 使用标准库封装的方法，algorithm有自己实现
+	// result := make([]int, h.Len())
+	// for k := range *h {
+	// 	min := heap.Pop(h)
+	// 	result[k] = min.(int)
+	// }
+	// fmt.Println("HeapSort 堆排序:", result)
+	// fmt.Println(h)
 
 	// 修改某个元素的value,heap自动调整
 	i := 3
