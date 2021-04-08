@@ -1,6 +1,17 @@
-
-
-[TOC]
+- [一： 一些整理的函数](#一-一些整理的函数)
+    - [1: string和[]byte高效互转](#1-string和byte高效互转)
+    - [2: 结构体和[]byte互转](#2-结构体和byte互转)
+    - [3: int和[]byte互转](#3-int和byte互转)
+    - [4: go Generate UUID](#4-go-generate-uuid)
+    - [5: IsEmpty()判断给的值是否为空](#5-isempty判断给的值是否为空)
+    - [6: 二分法对Slice进行插入排序](#6-二分法对slice进行插入排序)
+    - [7:RSA加密解密](#7rsa加密解密)
+    - [8: RemoteIp 返回远程客户端的 IP，如 192.168.1.1   ; 将 IPv4 字符串形式转为 uint32](#8-remoteip-返回远程客户端的-ip如-19216811----将-ipv4-字符串形式转为-uint32)
+    - [9：UTF-8和GBK转换](#9utf-8和gbk转换)
+- [四：其他](#四其他)
+回远程客户端的-ip如-19216811----将-ipv4-字符串形式转为-uint32)
+    * [9：UTF\-8和GBK转换](#9utf-8和gbk转换)
+* [四：其他](#四其他)
 
 ```go
 1: string和[]byte高效互转

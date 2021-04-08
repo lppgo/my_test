@@ -1,4 +1,20 @@
-[TOC]
+- [三：一些整理的好用的库](#三一些整理的好用的库)
+    - [1: anti ,一个高性能，低损耗的goroutine池](#1-anti-一个高性能低损耗的goroutine池)
+    - [2: gpool对象复用池](#2-gpool对象复用池)
+    - [3: gcache是一个高速的单进程缓存模块,gcache提供了并发安全的缓存控制接口](#3-gcache是一个高速的单进程缓存模块gcache提供了并发安全的缓存控制接口)
+    - [4: gcache LRU缓存淘汰策略  Least Recently Used](#4-gcache-lru缓存淘汰策略--least-recently-used)
+    - [5: goroutine池 grpool](#5-goroutine池-grpool)
+    - [6: errgroup](#6-errgroup)
+    - [7:](#7)
+    - [8:](#8)
+    - [9:](#9)
+缓存模块gcache提供了并发安全的缓存控制接口)
+    * [4: gcache LRU缓存淘汰策略  Least Recently Used](#4-gcache-lru缓存淘汰策略--least-recently-used)     
+    * [5: goroutine池 grpool](#5-goroutine池-grpool)
+    * [6: errgroup](#6-errgroup)
+    * [7:](#7)
+    * [8:](#8)
+    * [9:](#9)
 
 # 三：一些整理的好用的库
 

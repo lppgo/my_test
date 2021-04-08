@@ -1,5 +1,3 @@
-[TOC]
-
 # Headp 堆
 
 ## 1: Complete Binary Tree
