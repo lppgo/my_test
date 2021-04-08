@@ -5,16 +5,9 @@
     - [4: gcache LRU缓存淘汰策略  Least Recently Used](#4-gcache-lru缓存淘汰策略--least-recently-used)
     - [5: goroutine池 grpool](#5-goroutine池-grpool)
     - [6: errgroup](#6-errgroup)
-    - [7:](#7)
+    - [7: sync.Cond 用法](#7-synccond-用法)
     - [8:](#8)
     - [9:](#9)
-缓存模块gcache提供了并发安全的缓存控制接口)
-    * [4: gcache LRU缓存淘汰策略  Least Recently Used](#4-gcache-lru缓存淘汰策略--least-recently-used)     
-    * [5: goroutine池 grpool](#5-goroutine池-grpool)
-    * [6: errgroup](#6-errgroup)
-    * [7:](#7)
-    * [8:](#8)
-    * [9:](#9)
 
 # 三：一些整理的好用的库
 
@@ -137,7 +130,46 @@ func f4grpool() {
 
 ### 6: errgroup
 
-### 7:
+### 7: sync.Cond 用法
+sync.Cond 具有阻塞协程和唤醒协程的功能
+
+cond.L.Lock() // lock
+cond.Wait() // 
+... do sth
+cond.L.Unlock() // unlock
+
+cond.Broadcast() // 在另一个go发号命令
+```go
+//10个人赛跑，1个裁判发号施令
+func race() {
+	// cond := sync.NewCond(&sync.Mutex{})
+
+	cond := sync.NewCond(&sync.Mutex{})
+	var wg sync.WaitGroup
+	wg.Add(11)
+	for i := 0; i < 10; i++ {
+		go func(num int) {
+			defer wg.Done()
+			fmt.Println(num, "号已经就位")
+			cond.L.Lock()
+			cond.Wait() //等待发令枪响
+			fmt.Println(num, "号开始跑……")
+			cond.L.Unlock()
+		}(i)
+	}
+	//等待所有goroutine都进入wait状态
+	time.Sleep(5 * time.Second)
+	go func() {
+		defer wg.Done()
+		fmt.Println("裁判已经就位，准备发令枪")
+		fmt.Println("比赛开始，大家准备跑")
+		cond.Broadcast() //发令枪响
+	}()
+	//防止函数提前返回退出
+	wg.Wait()
+}
+
+```
 
 ### 8:
 
