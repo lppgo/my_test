@@ -132,13 +132,24 @@ func f4grpool() {
 
 ### 7: sync.Cond 用法
 sync.Cond 具有阻塞协程和唤醒协程的功能
+```go
+sync.Cond 有三个方法，它们分别是：
 
-cond.L.Lock() // lock
-cond.Wait() // 
-... do sth
-cond.L.Unlock() // unlock
+    Wait，阻塞当前协程，直到被其他协程调用 Broadcast 或者 Signal 方法唤醒，使用的时候需要加锁，使用 sync.Cond 中的锁即可，也就是 L 字段。
 
-cond.Broadcast() // 在另一个go发号命令
+    Signal，唤醒一个等待时间最长的协程。
+
+    Broadcast，唤醒所有等待的协程。
+
+// cond.L.Lock() // lock
+// cond.Wait() // 
+// ... do sth // 执行go逻辑
+// cond.L.Unlock() // unlock
+
+// cond.Broadcast() // 在另一个go发号命令
+```
+
+
 ```go
 //10个人赛跑，1个裁判发号施令
 func race() {
