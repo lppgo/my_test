@@ -145,6 +145,7 @@ FROM golang:1.15-alpine AS builder
 WORKDIR /workspace
 ENV GO111MODULE=on \
     GOPROXY=https://goproxy.cn,direct
+RUN adduser -u 10001 -D app-runner
 
 # cache deps before building and copying source so that we don't need to re-download as much
 # and so that source changes don't invalidate our downloaded layer
@@ -158,6 +159,10 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64  go build -o main ./cmd/server
 
 FROM alpine:3.12.0
 COPY --from=builder /workspace/main /main
+COPY --from=builder /build/config /app/config
+COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+USER app-runner
 RUN chmod +x /main
 ENV TZ=Asia/Shanghai
 ENTRYPOINT ["/main"]
