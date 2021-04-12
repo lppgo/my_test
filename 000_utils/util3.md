@@ -6,7 +6,7 @@
     - [5: goroutine池 grpool](#5-goroutine池-grpool)
     - [6: errgroup](#6-errgroup)
     - [7: sync.Cond 用法](#7-synccond-用法)
-    - [8:](#8)
+    - [8: singleflight 合并请求，prevent缓存穿透](#8-singleflight-合并请求prevent缓存穿透)
     - [9:](#9)
 
 # 三：一些整理的好用的库
@@ -182,6 +182,37 @@ func race() {
 
 ```
 
-### 8:
+### 8: singleflight 合并请求，prevent缓存穿透
+```go
+var count = int64(0)
+
+func main() {
+	g := singleflight.Group{}
+
+	wg := sync.WaitGroup{}
+
+	for i := 0; i < 100; i++ {
+		wg.Add(1)
+		go func(j int) {
+			defer wg.Done()
+			val, err, shared := g.Do("a", a)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			fmt.Printf("index: %d, val: %d, shared: %v\n", j, val, shared)
+		}(i)
+	}
+
+	wg.Wait()
+
+}
+
+// 模拟接口方法
+func a() (interface{}, error) {
+	time.Sleep(time.Nanosecond * 1)
+	return atomic.AddInt64(&count, 1), nil
+}
+```
 
 ### 9:
