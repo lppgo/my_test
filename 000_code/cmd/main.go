@@ -1,7 +1,7 @@
 package main
 
 import (
-	sort "github.com/lppgo/my_test/000_code/algorithm/sort"
+	"github.com/lppgo/my_test/000_code/algorithm/search"
 	heap "github.com/lppgo/my_test/000_code/datastruct/008_heap"
 )
 
@@ -24,5 +24,7 @@ func DataStructApp() {
 
 // 算法 App.
 func ALgorithmApp() {
-	sort.Sort()
+	// sort.Sort()
+
+	search.Search()
 }

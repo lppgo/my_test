@@ -20,11 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b370704-a3f9-4db6-ab1b-0a185ac75d34" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/algorithm/sort/sort.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/sort/sort.go" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm/sort/sort.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datastruct/003_linked_list/linked_list2.go" beforeDir="false" afterPath="$PROJECT_DIR$/datastruct/003_linked_list/linked_list2.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datastruct/007_tree.go" beforeDir="false" afterPath="$PROJECT_DIR$/datastruct/007_tree.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +60,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -96,27 +94,5 @@
         <entry key="GOPROXY" value="&quot;https://goproxy.cn,direct&quot;" />
       </map>
     </environment>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="433" y="174" key="#Go_Modules" timestamp="1616057702474">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="433" y="174" key="#Go_Modules/0.0.1280.680/1920.0.1280.984@0.0.1280.680" timestamp="1616057702474" />
-    <state x="381" y="141" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1616059512760">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="381" y="141" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680/1920.0.1280.984@0.0.1280.680" timestamp="1616059512760" />
-    <state x="461" y="31" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1616749247730">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="461" y="31" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1280.680/1920.0.1280.984@0.0.1280.680" timestamp="1616749247730" />
-    <state x="528" y="200" key="EnvironmentVariablesDialog" timestamp="1616057668668">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="528" y="200" key="EnvironmentVariablesDialog/0.0.1280.680/1920.0.1280.984@0.0.1280.680" timestamp="1616057668668" />
-    <state x="0" y="0" width="603" height="680" key="find.popup" timestamp="1616749253143">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="0" y="0" width="603" height="680" key="find.popup/0.0.1280.680/1920.0.1280.984@0.0.1280.680" timestamp="1616749253143" />
   </component>
 </project>

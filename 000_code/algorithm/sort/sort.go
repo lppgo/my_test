@@ -1,4 +1,4 @@
-package sortv
+package sort
 
 import (
 	"fmt"
