@@ -5,9 +5,10 @@
     - [4: go Generate UUID](#4-go-generate-uuid)
     - [5: IsEmpty()判断给的值是否为空](#5-isempty判断给的值是否为空)
     - [6: 二分法对Slice进行插入排序](#6-二分法对slice进行插入排序)
-    - [7:RSA加密解密](#7rsa加密解密)
-    - [8: RemoteIp 返回远程客户端的 IP，如 192.168.1.1   ; 将 IPv4 字符串形式转为 uint32](#8-remoteip-返回远程客户端的-ip如-19216811----将-ipv4-字符串形式转为-uint32)
-    - [9：UTF-8和GBK转换](#9utf-8和gbk转换)
+    - [7: RemoteIp 返回远程客户端的 IP，如 192.168.1.1   ; 将 IPv4 字符串形式转为 uint32](#7-remoteip-返回远程客户端的-ip如-19216811----将-ipv4-字符串形式转为-uint32)
+    - [8：UTF-8和GBK转换](#8utf-8和gbk转换)
+    - [9: RSA加密解密](#9rsa加密解密)
+    - [10: MD5加密解密](#10md5加密解密)
 - [四：其他](#四其他)
 回远程客户端的-ip如-19216811----将-ipv4-字符串形式转为-uint32)
     * [9：UTF\-8和GBK转换](#9utf-8和gbk转换)
@@ -173,37 +174,7 @@ func appendSorted(es []muxEntry, e muxEntry) []muxEntry {
 }
 ```
 
-### 7:RSA加密解密
-
-```go
-//加密
-func RAS_Encrypt() {
-	//生成密钥
-	var err error
-	privateKey, err = rsa.GenerateKey(rand.Reader, 2048)
-	if err != nil {
-		panic(err)
-	}
-	publicKey = privateKey.PublicKey
-	//加密
-	encryptedBytes, err = rsa.EncryptOAEP(sha256.New(), rand.Reader, &publicKey, msg, nil)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("encrypted bytes: ", encryptedBytes)
-}
-// 解密
-func RAS_Decrypt() {
-	var err error
-	decryptedBytes, err = privateKey.Decrypt(nil, encryptedBytes, &rsa.OAEPOptions{Hash: crypto.SHA256})
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println("decrypted message:", string(decryptedBytes))
-}
-```
-
-### 8: RemoteIp 返回远程客户端的 IP，如 192.168.1.1   ; 将 IPv4 字符串形式转为 uint32
+### 7: RemoteIp 返回远程客户端的 IP，如 192.168.1.1   ; 将 IPv4 字符串形式转为 uint32
 ```go
 // RemoteIp 返回远程客户端的 IP，如 192.168.1.1
 func RemoteIp(req *http.Request) string {
@@ -262,7 +233,7 @@ func UInt32ToIP(intIP uint32) net.IP {
 }
 ```
 
-### 9：UTF-8和GBK转换
+### 8：UTF-8和GBK转换
 ```go
 package main
 
@@ -295,6 +266,69 @@ func Utf8ToGbk(s []byte) ([]byte, error) {
 }
 
 ```
+### 9:RSA加密解密
 
+```go
+//加密
+func RAS_Encrypt() {
+	//生成密钥
+	var err error
+	privateKey, err = rsa.GenerateKey(rand.Reader, 2048)
+	if err != nil {
+		panic(err)
+	}
+	publicKey = privateKey.PublicKey
+	//加密
+	encryptedBytes, err = rsa.EncryptOAEP(sha256.New(), rand.Reader, &publicKey, msg, nil)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("encrypted bytes: ", encryptedBytes)
+}
+// 解密
+func RAS_Decrypt() {
+	var err error
+	decryptedBytes, err = privateKey.Decrypt(nil, encryptedBytes, &rsa.OAEPOptions{Hash: crypto.SHA256})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("decrypted message:", string(decryptedBytes))
+}
+```
+### 10:MD5加密解密
+```go
+package main
+
+import (
+	"crypto/md5"
+	"fmt"
+	"io"
+	"log"
+)
+
+//方式一
+func getMd5String1(str string) string {
+	m := md5.New()
+	_, err := io.WriteString(m, str)
+	if err != nil {
+		log.Fatal(err)
+	}
+	arr := m.Sum(nil)
+	return fmt.Sprintf("%x", arr)
+}
+
+//方式二
+func getMd5String2(b []byte) string {
+	return fmt.Sprintf("%x", md5.Sum(b))
+}
+
+func main() {
+	str := "123456"
+	string1 := getMd5String1(str)
+	fmt.Println(string1)
+	string2 := getMd5String2([]byte(str))
+	fmt.Println(string2)
+}
+```
 # 四：其他
 
