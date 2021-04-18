@@ -39,42 +39,44 @@ func slidingWindows(s string) {
 
 // 最小覆盖子串: 返回s中包含t中元素的最小子串
 func slidingWindows2(s, t string) {
-	windows := make(map[byte]int, len(s))
-	target := make(map[byte]int, len(t)) //
+	lens := len(s)
+	lent := len(t)
+	windows := make(map[byte]int, lens)
+	target := make(map[byte]int, lent)
 	for _, v := range t {
-		target[byte(v)]++
+		target[byte(v)] = 1
 	}
+	validCount := 0 // 当 validCount == lent ,也就是target是windows的子集的时候，满足条件，开始右移
+	left, right := 0, 0
+	min := lens // 符合条件最小子串长度
+	start := -1 // 默认起始位置
 
-	left, right, valid := 0, 0, 0
-	start := -1 // s
-	res := len(s)
-
-	for right < len(s) { // right右滑
-		rval := s[right]
-		windows[rval]++
+	for right < lens {
+		rVal := s[right]
+		windows[rVal]++
 		right++
-		if windows[rval] == target[rval] {
-			valid++
+		if windows[rVal] == target[rVal] {
+			validCount++
 		}
 
-		for valid == len(target) {
-			lval := s[left]
-			if right-left <= res { //是否更新结果值
+		for validCount == lent { //
+			lVal := s[left]
+			if right-left <= min {
+				min = right - left
 				start = left
-				res = right - left
 			}
-			if windows[lval] == target[lval] {
-				valid--
+			if windows[lVal] == target[lVal] {
+				validCount--
 			}
-			windows[lval]--
+			windows[lVal]--
 			left++
 		}
-	}
 
+	}
+	fmt.Println(min)
 	if start == -1 {
 		fmt.Printf(" 字符串s:%s不包含子串t:%s元素", s, t)
 	} else {
-		fmt.Printf(" 字符串s:%s包含字符串t:%s元素的最小字串是:%s\n", s, t, s[start:start+res])
+		fmt.Printf(" 字符串s:%s包含字符串t:%s元素的最小字串是:%s\n", s, t, s[start:start+min])
 	}
-
 }
