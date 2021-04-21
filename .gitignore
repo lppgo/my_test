@@ -7,3 +7,4 @@
 *.exe
 *.client
 *.server
+*.workspace.xml

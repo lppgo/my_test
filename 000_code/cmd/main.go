@@ -13,7 +13,7 @@ func main() {
 	case 1:
 		DataStructApp()
 	case 2:
-		ALgorithmApp()
+		AlgorithmApp()
 	}
 }
 
@@ -23,7 +23,7 @@ func DataStructApp() {
 }
 
 // 算法 App.
-func ALgorithmApp() {
+func AlgorithmApp() {
 	sort.Sort()
 
 	// search.Search()

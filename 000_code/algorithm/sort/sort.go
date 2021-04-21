@@ -159,24 +159,32 @@ func QuickSort2(a []int) []int {
 }
 
 //
-func MergeSort(a []int) []int {
-	if len(a) < 2 {
-		return a
+func MergeSort(nums []int) []int {
+	if len(nums) <= 1 {
+		return nums
 	}
 
-	mid := len(a) >> 1
-	left := MergeSort(a[:mid])
-	right := MergeSort(a[mid:])
-
-	return merge(left, right, len(a))
+	// 获取分区位置
+	p := len(nums) / 2
+	// 通过递归分区
+	left := MergeSort(nums[0:p])
+	right := MergeSort(nums[p:])
+	// 排序后合并
+	return merge(left, right)
 }
 
-func merge(left, right []int, length int) []int {
-	result := make([]int, 0, length)
-	i, j := 0, 0 // 分别是left,right的index的位置
-
-	for i < len(left) && j < len(right) {
-		if left[i] < right[j] {
+// 排序合并 .
+func merge(left []int, right []int) []int {
+	i, j := 0, 0
+	// 用于存放结果集
+	var result []int
+	for {
+		// 任何一个区间遍历完，则退出
+		if i >= len(left) || j >= len(right) {
+			break
+		}
+		// 对所有区间数据进行排序
+		if left[i] <= right[j] {
 			result = append(result, left[i])
 			i++
 		} else {
@@ -185,9 +193,17 @@ func merge(left, right []int, length int) []int {
 		}
 	}
 
-	result = append(result, left[i:]...) // 思考：为什么不报数组越界？reslice
-	result = append(result, right[j:]...)
+	// 如果左侧区间还没有遍历完，将剩余数据放到结果集
+	if i != len(left) {
+		result = append(result, left[i:]...)
+	}
 
+	// 如果右侧区间还没有遍历完，将剩余数据放到结果集
+	if j != len(right) {
+		result = append(result, right[j:]...)
+	}
+
+	// 返回排序后的结果集
 	return result
 }
 
