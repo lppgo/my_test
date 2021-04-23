@@ -1,12 +1,17 @@
 package main
 
 import (
-	sort "github.com/lppgo/my_test/000_code/algorithm/sort"
-	heap "github.com/lppgo/my_test/000_code/datastruct/008_heap"
+	// mySearch "github.com/lppgo/my_test/000_code/algorithm/search"
+	// mySort "github.com/lppgo/my_test/000_code/algorithm/sort"
+	// myHeap "github.com/lppgo/my_test/000_code/datastruct/008_heap"
+
+	"log"
+
+	mySort "github.com/lppgo/my_test/000_code/algorithm/sort"
+	myHeap "github.com/lppgo/my_test/000_code/datastruct/008_heap"
 )
 
 func main() {
-	//
 	option := 2
 
 	switch option {
@@ -15,16 +20,17 @@ func main() {
 	case 2:
 		AlgorithmApp()
 	}
+	log.Println("exit ...")
 }
 
 // 数据结构 App.
 func DataStructApp() {
-	heap.ExampleIntHeap()
+	myHeap.ExampleIntHeap()
 }
 
 // 算法 App.
 func AlgorithmApp() {
-	sort.Sort()
+	mySort.Sort()
 
-	// search.Search()
+	// mySearch.Search()
 }

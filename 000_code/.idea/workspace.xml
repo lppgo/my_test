@@ -21,6 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0b370704-a3f9-4db6-ab1b-0a185ac75d34" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithm/search/search.go" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm/search/search.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/algorithm/sort/sort.go" beforeDir="false" afterPath="$PROJECT_DIR$/algorithm/sort/sort.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
     </list>
@@ -70,6 +71,22 @@
       <recent name="E:\goProject001\000_code\datastruct\005_queue" />
       <recent name="E:\goProject001\000_code\datastruct\004_stack" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="go build github.com/lppgo/my_test/000_code/cmd" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="000_code" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/lppgo/my_test/000_code/cmd" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/cmd/main.go" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build github.com/lppgo/my_test/000_code/cmd" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">

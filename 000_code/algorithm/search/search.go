@@ -6,10 +6,17 @@ import "fmt"
 
 func Search() {
 
-	s := "asbiabihcas19io2"
-	t := "abc"
+	// 滑动窗口法 .
+	// s := "asbiabihcas19io2"
+	// t := "abc"
 	// slidingWindows(s)
-	slidingWindows2(s, t)
+	// slidingWindows2(s, t)
+
+	// 	二分搜索法.
+	arr := []int{0, 1, 2, 3, 4, 5, 6, 6, 7, 8, 9}
+	index1 := binarySearch1(arr, 8)
+	fmt.Println("non-recursion binarySearch:", index1)
+
 }
 
 // 滑动窗口 .
@@ -79,4 +86,22 @@ func slidingWindows2(s, t string) {
 	} else {
 		fmt.Printf(" 字符串s:%s包含字符串t:%s元素的最小字串是:%s\n", s, t, s[start:start+min])
 	}
+}
+
+// non-recursion .
+func binarySearch1(arr []int, target int) int {
+	noexist := -1
+	left, right := 0, len(arr)
+	for left < right {
+		mid := (left + right) >> 1
+		switch {
+		case arr[mid] == target:
+			return mid
+		case arr[mid] > target:
+			right = mid
+		case arr[mid] < target:
+			left = mid + 1
+		}
+	}
+	return noexist
 }
