@@ -8,11 +8,11 @@ import (
 	"log"
 
 	mySort "github.com/lppgo/my_test/000_code/algorithm/sort"
-	myHeap "github.com/lppgo/my_test/000_code/datastruct/008_heap"
+	mySkiplist "github.com/lppgo/my_test/000_code/datastruct/009_skiplist"
 )
 
 func main() {
-	option := 2
+	option := 1
 
 	switch option {
 	case 1:
@@ -20,12 +20,15 @@ func main() {
 	case 2:
 		AlgorithmApp()
 	}
+
 	log.Println("exit ...")
 }
 
 // 数据结构 App.
 func DataStructApp() {
-	myHeap.ExampleIntHeap()
+	// myHeap.ExampleIntHeap()
+
+	mySkiplist.ExampleSkiplist()
 }
 
 // 算法 App.

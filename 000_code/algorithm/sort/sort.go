@@ -242,17 +242,6 @@ func merge(left []int, right []int) []int {
 	return result
 }
 
-// 归并排序2:非递归
-// func MergeSort2(nums []int) []int {
-// 	n := len(nums)
-// 	res := make([]int, 0, n)
-// 	fmt.Println(n)
-// 	// 	子数组大小分别为1,2,4,8...
-// 	// 	刚开始合并的数组大小是1,接着是2，接着是4...
-// 	for i := 1; i < n; i += i {}
-// 	return res
-// }
-
 //
 func ShellSort(arr []int) []int {
 	// 寻找合适的步长间隔h ，3h+1或者n/2
