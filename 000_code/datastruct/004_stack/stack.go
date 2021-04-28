@@ -10,6 +10,15 @@ type Stack struct {
 	Element []interface{} //Element
 }
 
+type Stacker interface {
+	Push()
+	Top()
+	Pop()
+	Size()
+	Empty()
+	Print()
+}
+
 func NewStack() *Stack {
 	return &Stack{}
 }

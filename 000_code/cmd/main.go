@@ -8,7 +8,7 @@ import (
 	"log"
 
 	mySort "github.com/lppgo/my_test/000_code/algorithm/sort"
-	mySkiplist "github.com/lppgo/my_test/000_code/datastruct/009_skiplist"
+	myArray "github.com/lppgo/my_test/000_code/datastruct/001_array"
 )
 
 func main() {
@@ -26,9 +26,10 @@ func main() {
 
 // 数据结构 App.
 func DataStructApp() {
+	myArray.ExampleArray()
 	// myHeap.ExampleIntHeap()
 
-	mySkiplist.ExampleSkiplist()
+	// mySkiplist.ExampleSkiplist()
 }
 
 // 算法 App.

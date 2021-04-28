@@ -1,10 +1,3 @@
-/**
- * @Author: lucas
- * @Description:
- * @File:  linked_list2
- * @Version: 1.0.0
- * @Date: 2021/3/18 17:41
- */
 package linked_list
 
 import (
