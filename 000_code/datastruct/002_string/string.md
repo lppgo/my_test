@@ -1,6 +1,11 @@
-[toc]
+- [1: 串String](#1-串string)
+- [2: 广义表](#2-广义表)
 
-# 1: [串String](https://github.com/lppgo/over-algorithm/blob/master/05-%E4%B8%B2%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/01-%E4%B8%B2%E7%AE%80%E4%BB%8B.md)
+
+# 1: 串String
+
+ [串String](https://github.com/lppgo/over-algorithm/blob/master/05-%E4%B8%B2%E4%B8%8E%E5%B9%BF%E4%B9%89%E8%A1%A8/01-%E4%B8%B2%E7%AE%80%E4%BB%8B.md)
+
 串是由零到多个字符组成的有限序列，常称为字符串。基本所有语言都有对字符串的实现.
 
 零个字符的串称为空串（nullstring），长度为 0，即"";

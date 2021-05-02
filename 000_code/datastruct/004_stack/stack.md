@@ -1,4 +1,4 @@
-[toc]
+- [栈Stack](#栈stack)
 
 # 栈Stack
 

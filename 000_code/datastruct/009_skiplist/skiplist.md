@@ -1,4 +1,4 @@
-[toc]
+- [skiplist跳跃表](#skiplist跳跃表)
 
 # skiplist跳跃表
 

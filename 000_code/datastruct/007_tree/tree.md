@@ -1,4 +1,22 @@
-[toc]
+- [1: 树形结构](#1-树形结构)
+  - [1.1 Tree的相关术语](#11-tree的相关术语)
+  - [1.2 树的存储结构](#12-树的存储结构)
+- [2：二叉树](#2二叉树)
+  - [2.1 满二叉树](#21-满二叉树)
+  - [2.1 完全二叉树](#21-完全二叉树)
+  - [2.3 二叉树的 Traversal](#23-二叉树的-traversal)
+    - [2.3.1 层序遍历 Level Order Traversal](#231-层序遍历-level-order-traversal)
+    - [2.3.2 前序遍历 PerOrder Traversal](#232-前序遍历-perorder-traversal)
+    - [2.3.3 中序遍历 InOrder Traversal](#233-中序遍历-inorder-traversal)
+    - [2.3.4 后序遍历 PostOrder Traversal](#234-后序遍历-postorder-traversal)
+  - [2.4 二叉搜索树 BST](#24-二叉搜索树-bst)
+    - [2.4.1 BST的特点](#241-bst的特点)
+    - [2.4.2 二叉搜索树与哈希表的对比](#242-二叉搜索树与哈希表的对比)
+    - [2.4.3 AVL 平衡二叉树](#243-avl-平衡二叉树)
+    - [2.4.4 Red Black Tree 红黑树](#244-red-black-tree-红黑树)
+    - [2.4.5 B树 (平衡二叉搜索树)](#245-b树-平衡二叉搜索树)
+    - [2.4.6 B+树](#246-b树)
+- [3：二叉堆](#3二叉堆)
 
 # 1: 树形结构
 
