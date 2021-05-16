@@ -74,7 +74,7 @@ func f(n int) int{
 ```
 
 其执行过程如图：  
-![](../images/algorithm/10-001.png)
+![](https://i.bmp.ovh/imgs/2021/05/392712b83226e52c.png)
 
 从图中，我们可以直观地看到，想要计算 f(5)，需要先计算 f(4) 和 f(3)，而计算 f(4) 还需要计算 f(3)，因此，f(3) 就被计算了很多次，这就是重复计算问题。  
 
@@ -251,7 +251,7 @@ func log(n int) {
 
 其在内存中的实现过程如图：  
 
-![](../images/algorithm/10-003.png)  
+![](https://i.bmp.ovh/imgs/2021/05/168ab5329e5e23f7.png)
 
 非递归实现：
 ```go
