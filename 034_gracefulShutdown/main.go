@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -76,5 +77,35 @@ func newWebserver(logger *log.Logger) *http.Server {
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  15 * time.Second,
+	}
+}
+
+// 优雅的关闭服务 2
+func gracefullShutdown2() {
+	server := http.Server{
+		Addr: ":8080",
+	}
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(time.Second * 10)
+		fmt.Fprint(w, "Hello world!")
+	})
+
+	go server.ListenAndServe()
+
+	// 监听中断信号（CTRL + C）
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	<-ctx.Done()
+
+	// 重置 os.Interrupt 的默认行为，类似 signal.Reset
+	stop()
+	fmt.Println("shutting down gracefully, press Ctrl+C again to force")
+
+	// 给程序最多 5 秒时间处理正在服务的请求
+	timeoutCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := server.Shutdown(timeoutCtx); err != nil {
+		fmt.Println(err)
 	}
 }
