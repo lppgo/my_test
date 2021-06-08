@@ -6,18 +6,20 @@ import (
 	"crypto/sha256"
 	"fmt"
 
-	myMD5 "github.com/lppgo/my_test/033_crypto/md5"
-	myRSA "github.com/lppgo/my_test/033_crypto/rsa"
+	"github.com/lppgo/my_test/033_crypto/myaes"
+	"github.com/lppgo/my_test/033_crypto/mymd5"
+	"github.com/lppgo/my_test/033_crypto/myrsa"
 )
 
 func main() {
 	// 摘要算法
-	MD5Example()
+	// MD5Example()
 
 	// 对称加密
+	AESExample()
 
 	// 非对称加密
-	RSAExample()
+	// RSAExample()
 
 }
 
@@ -33,9 +35,9 @@ func RSAExample() {
 	publicKey := privateKey.PublicKey
 
 	// RSA加解密
-	encryptedBytes := myRSA.RSAEncrypt(publicKey, msg)
+	encryptedBytes := myrsa.RSAEncrypt(publicKey, msg)
 	fmt.Println("encrypted bytes: ", encryptedBytes)
-	decryptedBytes := myRSA.RSADecrypt(*privateKey, encryptedBytes)
+	decryptedBytes := myrsa.RSADecrypt(*privateKey, encryptedBytes)
 	fmt.Println("decrypted message:", string(decryptedBytes))
 
 	// RSA进行数字签名sign
@@ -49,16 +51,33 @@ func RSAExample() {
 	}
 	msgHashSum := hash.Sum(nil)
 	//
-	sign := myRSA.GenerateSign(*privateKey, msgHashSum)
+	sign := myrsa.GenerateSign(*privateKey, msgHashSum)
 	fmt.Println("生成的签名sign:", sign)
-	ok := myRSA.CheckSign(publicKey, msgHashSum, sign)
+	ok := myrsa.CheckSign(publicKey, msgHashSum, sign)
 	fmt.Println("对签名sign校验:", ok)
 }
 
+// md5摘要算法示例
 func MD5Example() {
 	str := "123456"
-	string1 := myMD5.GetMd5String1(str)
+	string1 := mymd5.GetMd5String1(str)
 	fmt.Println(string1)
-	string2 := myMD5.GetMd5String2([]byte(str))
+	string2 := mymd5.GetMd5String2([]byte(str))
 	fmt.Println(string2)
+}
+
+// AES 加解密
+func AESExample() {
+	plaintext := []byte("Lucas is currently the best DisneyPlus show")
+	key := []byte("TZPtSIacEJG18IpqQSkTE6luYmnCNKgR")
+	//加密
+	ciphertext, _ := myaes.AesEncrypt(plaintext, key)
+	//解密
+	plaintext2, _ := myaes.AesDecrypt(ciphertext, key)
+
+	fmt.Printf("plaintext:%v\n", string(plaintext2))
+
+	// ciphertextStr, _ := myaes.EncryptByAes(ciphertext)
+	// plaintextStr, _ := myaes.EncryptByAes(plaintext2)
+	// fmt.Printf("ciphertext:%v\n", ciphertextStr)
 }
