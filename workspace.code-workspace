@@ -5,6 +5,6 @@
     }
   ],
   "settings": {
-    "python.languageServer": "None"
+    "python.languageServer": "Pylance"
   }
 }
