@@ -75,11 +75,12 @@ func (s *server) ListFeatures(ctx context.Context, in *pb.Rectangle, stream pb.R
 	defer span.Finish()
 	span.SetTag("parentOrderbook", "A001")
 
-	cancelCtx, cancel := context.WithCancel(ctx)
-	defer cancel()
+	// cancelCtx, cancel := context.WithCancel(ctx)
+	// defer cancel()
+	subCtx := opentracing.ContextWithSpan(ctx, span)
 
 	for _, feature := range features {
-		if inRange(cancelCtx, feature.Location, in) {
+		if inRange(subCtx, feature.Location, in) {
 			if err := stream.Send(feature); err != nil {
 				return err
 			}
