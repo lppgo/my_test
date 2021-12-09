@@ -1,0 +1,22 @@
+syntax = "proto3";
+package protos;
+
+option go_package="./protos";
+
+
+/* 
+
+protoc -I=./protos --go_out=. --micro_out=. protos/greeter.proto
+*/
+
+service Greeter {
+	rpc Hello(Request) returns (Response) {}
+}
+
+message Request {
+	string name = 1;
+}
+
+message Response {
+	string greeting = 2;
+}

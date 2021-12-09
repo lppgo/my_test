@@ -1,0 +1,69 @@
+
+
+syntax = "proto3";
+
+//option go_package = "grpc-jaeger/protos";
+//option java_multiple_files = true;
+//option java_package = "io.grpc.examples.routeguide";
+//option java_outer_classname = "RouteGuideProto";
+
+package routeguide;
+
+// Interface exported by the server.
+service RouteGuide {
+  // A simple RPC.
+  //
+  // Obtains the feature at a given position.
+  rpc GetFeature(Point) returns (Feature) {}
+
+  // A server-to-client streaming RPC.
+  rpc ListFeatures(Rectangle) returns (stream Feature) {}
+
+  // A client-to-server streaming RPC.
+  rpc RecordRoute(stream Point) returns (RouteSummary) {}
+
+  // A Bidirectional streaming RPC.
+  rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+}
+
+// Points are represented as latitude-longitude pairs in the E7 representation
+// (degrees multiplied by 10**7 and rounded to the nearest integer).
+// Latitudes should be in the range +/- 90 degrees and longitude should be in
+// the range +/- 180 degrees (inclusive).
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+
+// A latitude-longitude rectangle, represented as two diagonally opposite
+// points "lo" and "hi".
+message Rectangle {
+  Point lo = 1;  // One corner of the rectangle.
+  Point hi = 2;  // The other corner of the rectangle.
+}
+
+// A feature names something at a given point.
+//
+// If a feature could not be named, the name is empty.
+message Feature {
+  string name = 1; // The name of the feature.
+  Point location = 2;  // The point where the feature is detected.
+}
+
+// A RouteNote is a message sent while at a given point.
+message RouteNote {
+  Point location = 1;  // The location from which the message is sent.
+  string message = 2;  // The message to be sent.
+}
+
+// A RouteSummary is received in response to a RecordRoute rpc.
+//
+// It contains the number of individual points received, the number of
+// detected features, and the total distance covered as the cumulative sum of
+// the distance between each point.
+message RouteSummary {
+  int32 point_count = 1;  // The number of points received.
+  int32 feature_count = 2;  // The number of known features passed while traversing the route.
+  int32 distance = 3;  // The distance covered in metres.
+  int32 elapsed_time = 4;  // The duration of the traversal in seconds.
+}
