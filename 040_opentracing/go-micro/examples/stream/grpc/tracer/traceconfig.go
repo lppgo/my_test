@@ -6,6 +6,7 @@ import (
 	"io"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
@@ -13,21 +14,56 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-func TraceInit(serviceName string, samplerType string, samplerParam float64, agentAddr string) (opentracing.Tracer, io.Closer) {
+const (
+	// _disable                        = false
+	// _rpc_metrics                    = false
+	_agent_addr    = "localhost:6831"
+	_sampler_param = float64(1)
+	// _reporter_queue_size            = 100
+	// _reporter_buffer_flush_interval = time.Second
+)
+
+type TracerCfg struct {
+	ServiceName                 string
+	AgentAddr                   string
+	Disable                     bool
+	SamplerType                 string
+	SamplerParam                float64
+	ReporterQueueSize           int
+	ReporterBufferFlushInterval time.Duration
+}
+
+func TraceInit(tracerCfg TracerCfg) (opentracing.Tracer, io.Closer) {
+	if tracerCfg.SamplerType == "" {
+		tracerCfg.SamplerType = jaeger.SamplerTypeConst
+	}
+	if tracerCfg.AgentAddr == "" {
+		tracerCfg.AgentAddr = _agent_addr
+	}
+
 	cfg := &config.Configuration{
-		ServiceName: serviceName,
+		ServiceName: tracerCfg.ServiceName,
 		Sampler: &config.SamplerConfig{
-			Type:  samplerType,
-			Param: samplerParam,
+			Type:  tracerCfg.SamplerType,
+			Param: tracerCfg.SamplerParam,
 		},
 		Reporter: &config.ReporterConfig{
-			// LocalAgentHostPort: "localhost:6831",
-			LocalAgentHostPort: agentAddr,
-			LogSpans:           true,
+			LocalAgentHostPort:  tracerCfg.AgentAddr,
+			LogSpans:            true,
+			BufferFlushInterval: time.Second * 1,
+			// QueueSize: 100,
 		},
 	}
 
-	tracer, closer, err := cfg.NewTracer(config.Logger(jaeger.StdLogger))
+	sender, err := jaeger.NewUDPTransport(tracerCfg.AgentAddr, 0)
+	if err != nil {
+		panic(fmt.Sprintf("NewUDPTransport failed: %v\n", err))
+	}
+
+	tracer, closer, err := cfg.NewTracer(
+		config.Reporter(jaeger.NewRemoteReporter(sender)),
+		config.Logger(jaeger.StdLogger),
+		config.PoolSpans(true))
 	if err != nil {
 		panic(fmt.Sprintf("Init failed: %v\n", err))
 	}
@@ -35,6 +71,12 @@ func TraceInit(serviceName string, samplerType string, samplerParam float64, age
 	return tracer, closer
 }
 
+/*
+	ctx := context.WithValue(pctx, "originID", "originID-001")
+	ctx = context.WithValue(ctx, "broker", "broker-001")
+	ctx = context.WithValue(ctx, "account", "account-001")
+
+*/
 func NewSpan(ctx context.Context) opentracing.Span {
 	pc := make([]uintptr, 10) // at least 1 entry needed
 	runtime.Callers(2, pc)
@@ -42,6 +84,22 @@ func NewSpan(ctx context.Context) opentracing.Span {
 		runtime.FuncForPC(pc[0]).Name(),
 		opentracing.ChildOf(opentracing.SpanFromContext(ctx).Context()),
 	)
+	//
+	if sc, ok := span.Context().(jaeger.SpanContext); ok {
+		span.SetTag("traceID", sc.TraceID())
+	}
+
+	//
+	if ctx.Value("originID") != nil {
+		span.SetTag("originID", ctx.Value("originID"))
+	}
+	if ctx.Value("broker") != nil {
+		span.SetTag("broker", ctx.Value("broker"))
+	}
+	if ctx.Value("account") != nil {
+		span.SetTag("account", ctx.Value("account"))
+	}
+
 	return span
 }
 

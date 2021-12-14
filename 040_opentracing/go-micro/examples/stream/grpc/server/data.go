@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"strings"
 
 	pb "github.com/asim/go-micro/examples/v4/stream/grpc/proto"
 	traceconfig "github.com/asim/go-micro/examples/v4/stream/grpc/tracer"
-	"google.golang.org/grpc/metadata"
+	"github.com/opentracing/opentracing-go/log"
+	"github.com/pkg/errors"
 	// "github.com/opentracing/opentracing-go/log"
 )
 
@@ -21,40 +21,21 @@ func init() {
 	}
 }
 
-// metadataReaderWriter satisfies both the opentracing.TextMapReader and
-// opentracing.TextMapWriter interfaces.
-type metadataReaderWriter struct {
-	metadata.MD
-}
-
-func (w metadataReaderWriter) Set(key, val string) {
-	// The GRPC HPACK implementation rejects any uppercase keys here.
-	//
-	// As such, since the HTTP_HEADERS format is case-insensitive anyway, we
-	// blindly lowercase the key (which is guaranteed to work in the
-	// Inject/Extract sense per the OpenTracing spec).
-	key = strings.ToLower(key)
-	w.MD[key] = append(w.MD[key], val)
-}
-
-func (w metadataReaderWriter) ForeachKey(handler func(key, val string) error) error {
-	for k, vals := range w.MD {
-		for _, v := range vals {
-			if err := handler(k, v); err != nil {
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-func inRange(ctx context.Context, point *pb.Point, rect *pb.Rectangle) bool {
+func inRange(ctx context.Context, i int, point *pb.Point, rect *pb.Rectangle) bool {
 	// span
 	span := traceconfig.NewSpan(ctx)
 	defer span.Finish()
 	span.SetTag("parentOrderbook", "A001")
 	span.SetTag("childOrderbook", "A001-001")
+
+	if i == 1 {
+		err := errors.New("new error!")
+		span.SetTag("error", true)
+		span.LogFields(
+			log.Error(err),
+		)
+	}
+	log.Int("range", i)
 
 	left := math.Min(float64(rect.Lo.Longitude), float64(rect.Hi.Longitude))
 	right := math.Max(float64(rect.Lo.Longitude), float64(rect.Hi.Longitude))

@@ -8,6 +8,8 @@ import (
 
 	pb "github.com/asim/go-micro/examples/v4/stream/grpc/proto"
 	"github.com/asim/go-micro/plugins/server/grpc/v4"
+	"github.com/pkg/errors"
+	"github.com/uber/jaeger-client-go"
 	"go-micro.dev/v4"
 	"go-micro.dev/v4/logger"
 	"google.golang.org/protobuf/proto"
@@ -22,10 +24,10 @@ var (
 	microServerName = "RouteGuide.Server"
 	microClientName = "RouteGuide.Client"
 
-	tracerServiceName  = "RouteGuide-Server"
-	tracerSamplerType  = "const"
-	tracerSamplerParam = float64(1)
-	tracerAgentAddr    = "localhost:6831"
+	tracerServiceName = "RouteGuide-Server"
+	// tracerSamplerType  = "const"
+	// tracerSamplerParam = float64(1)
+	// tracerAgentAddr    = "localhost:6831"
 )
 
 type server struct {
@@ -35,8 +37,18 @@ type server struct {
 
 func main() {
 	// tracer
-	tracer, close := traceconfig.TraceInit(tracerServiceName, tracerSamplerType, tracerSamplerParam, tracerAgentAddr)
+	var tracer opentracing.Tracer
+	tracerCfg := traceconfig.TracerCfg{
+		ServiceName: tracerServiceName,
+		// AgentAddr:    "localhost:6831",
+		AgentAddr:    "172.18.94.154:6831",
+		Disable:      false,
+		SamplerType:  jaeger.SamplerTypeConst,
+		SamplerParam: 1,
+	}
+	tracer, close := traceconfig.TraceInit(tracerCfg)
 	defer close.Close()
+
 	opentracing.SetGlobalTracer(tracer)
 
 	// opentracing.GlobalTracer().Extract(format interface{}, carrier interface{})
@@ -62,14 +74,18 @@ func (s *server) GetFeature(ctx context.Context, in *pb.Point, out *pb.Feature) 
 			return nil
 		}
 	}
+	err := errors.New("not found !")
 	out.Location = in
-	return nil
+	return err
 }
 
-func (s *server) ListFeatures(ctx context.Context, in *pb.Rectangle, stream pb.RouteGuide_ListFeaturesStream) error {
+func (s *server) ListFeatures(pctx context.Context, in *pb.Rectangle, stream pb.RouteGuide_ListFeaturesStream) error {
 	// tracer := opentracing.GlobalTracer()
 	// spanCtx, _ := traceconfig.ExtractSpanContext(ctx, tracer)
 	// span := traceconfig.NewChildOfSpan(spanCtx)
+	ctx := context.WithValue(pctx, "originID", "originID-001")
+	ctx = context.WithValue(ctx, "broker", "broker-001")
+	ctx = context.WithValue(ctx, "account", "account-001")
 
 	span := traceconfig.NewSpan(ctx)
 	defer span.Finish()
@@ -79,8 +95,8 @@ func (s *server) ListFeatures(ctx context.Context, in *pb.Rectangle, stream pb.R
 	// defer cancel()
 	subCtx := opentracing.ContextWithSpan(ctx, span)
 
-	for _, feature := range features {
-		if inRange(subCtx, feature.Location, in) {
+	for i, feature := range features {
+		if inRange(subCtx, i, feature.Location, in) {
 			if err := stream.Send(feature); err != nil {
 				return err
 			}

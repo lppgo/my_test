@@ -9,6 +9,7 @@ import (
 
 	pb "github.com/asim/go-micro/examples/v4/stream/grpc/proto"
 	"github.com/asim/go-micro/plugins/client/grpc/v4"
+	"github.com/uber/jaeger-client-go"
 	"go-micro.dev/v4"
 	"go-micro.dev/v4/logger"
 
@@ -22,15 +23,24 @@ var (
 	microServerName = "RouteGuide.Server"
 	microClientName = "RouteGuide.Client"
 
-	tracerServiceName  = "RouteGuide-Client"
-	tracerSamplerType  = "const"
-	tracerSamplerParam = float64(1)
-	tracerAgentAddr    = "localhost:6831"
+	tracerServiceName = "RouteGuide-Client"
+	// tracerSamplerType  = "const"
+	// tracerSamplerParam = float64(1)
+	// tracerAgentAddr = "localhost:6831"
 )
 
 func main() {
 	// tracer
-	tracer, close := traceconfig.TraceInit(tracerServiceName, tracerSamplerType, tracerSamplerParam, tracerAgentAddr)
+	var tracer opentracing.Tracer
+	tracerCfg := traceconfig.TracerCfg{
+		ServiceName: tracerServiceName,
+		// AgentAddr:    "localhost:6831",
+		AgentAddr:    "172.18.94.154:6831",
+		Disable:      false,
+		SamplerType:  jaeger.SamplerTypeConst,
+		SamplerParam: 1,
+	}
+	tracer, close := traceconfig.TraceInit(tracerCfg)
 	defer close.Close()
 	opentracing.SetGlobalTracer(tracer)
 
