@@ -41,7 +41,7 @@ func main() {
 	tracerCfg := traceconfig.TracerCfg{
 		ServiceName: tracerServiceName,
 		// AgentAddr:    "localhost:6831",
-		AgentAddr:    "172.18.94.154:6831",
+		AgentAddr:    "172.17.0.1:6831",
 		Disable:      false,
 		SamplerType:  jaeger.SamplerTypeConst,
 		SamplerParam: 1,
