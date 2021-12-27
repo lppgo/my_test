@@ -2,22 +2,27 @@ package main
 
 import (
 	"mylog/zaplogger"
-
-	"github.com/gin-gonic/gin"
+	"time"
 )
 
 func init() {
 	logpath := "./log/"
 	logfileName := "log.log"
-	zaplogger.LogConf(logpath, logfileName)
-}
-
-func test(c *gin.Context) {
-	zaplogger.Logger.Info("aaaaaaaa") //用于测试
+	srvName := "srvA"
+	zaplogger.LogConf(srvName, logpath, logfileName)
 }
 
 func main() {
-	router := gin.Default()
-	router.POST("/test", test)
-	router.Run(":8888")
+	tick := time.NewTicker(time.Second * 3)
+	for {
+		select {
+		case <-tick.C:
+			zaplogger.Logger.Debug("logger one debug")
+			zaplogger.Logger.Info("logger two info")
+			zaplogger.Logger.Error("logger three error")
+		default:
+			// Logger.Info("main_info", "logger default ")
+
+		}
+	}
 }
