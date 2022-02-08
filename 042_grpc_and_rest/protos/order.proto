@@ -1,0 +1,103 @@
+
+syntax = "proto3";
+package orders;
+import "google/protobuf/timestamp.proto";
+
+option go_package = "/mnt/e/goProject001/042_grpc&rest/protos";
+
+// 使用 CRUD + List rpc 方法定义 Order 服务 
+service OrderService {
+
+  // 创建订单
+  rpc Create (CreateOrderRequest) returns (CreateOrderResponse);
+
+  // 检索现有的订单
+  rpc Retrieve (RetrieveOrderRequest) returns (RetrieveOrderResponse);
+
+  // 修改现有订单
+  rpc Update (UpdateOrderRequest) returns (UpdateOrderResponse);
+
+  // 删除现有订单
+  rpc Delete (DeleteOrderRequest) returns (DeleteOrderResponse);
+
+   // 现有订单的 List 列表
+  rpc List (ListOrderRequest) returns (ListOrderResponse);
+}
+// 订单详细信息的 message(这是我们的实体)
+message Order {
+  // 订单可能存在的状态
+  enum Status {
+    PENDING = 0;
+    PAID = 1;
+    SHIPPED = 2;
+    DELIVERED = 3;
+    CANCELLED = 4;
+  }
+  int64 order_id = 1;
+  repeated Item items = 2;
+  float total = 3;
+  google.protobuf.Timestamp order_date = 5;
+  Status status = 6;
+}
+// 支付信息的 message
+message PaymentMethod {
+    enum Type {
+    NOT_DEFINED = 0;
+    VISA = 1;
+    MASTERCARD = 2;
+    PAYPAL = 3;
+    APPLEPAY = 4;
+  }
+   Type payment_type = 1;
+   string pre_authorization_token = 2; 
+}
+// 包含在订单中的商品的详细信息的 message
+message Item {
+  string description = 1;
+  float price = 2;
+}
+// 创建订单的请求
+message CreateOrderRequest {
+  repeated Item items = 1;
+  PaymentMethod payment_method = 2;
+}
+// 订单创建的响应
+message CreateOrderResponse {
+  Order order = 1;
+}
+// 检索订单的请求
+message RetrieveOrderRequest {
+  int64 order_id = 1;
+}
+// 检索订单的响应
+message RetrieveOrderResponse {
+  Order order = 1;
+}
+// 更新现有订单的请求
+message UpdateOrderRequest {
+  int64 order_id = 1;
+  repeated Item items = 2;
+  PaymentMethod payment_method = 3;
+}
+// 更新现有订单的响应
+message UpdateOrderResponse {
+  Order order = 1;
+}
+// 删除现有订单的请求
+message DeleteOrderRequest {
+  int64 order_id = 1;
+  repeated Item items = 2;
+}
+// 删除现有订单的响应
+message DeleteOrderResponse {
+  Order order = 1;
+}
+// 获取现有订单列表的请求
+message ListOrderRequest {
+  repeated int64 ids = 1;
+  Order.Status statuses = 2;
+}
+// 获取现有订单列表的响应
+message ListOrderResponse {
+  repeated Order order = 1;
+}
