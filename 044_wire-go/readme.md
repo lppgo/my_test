@@ -1,4 +1,4 @@
-<div><front align="center" size=35>Golang依赖注入框架wire使用详解</front></div>
+<div align="center"><front size=35>Golang依赖注入框架wire使用详解</front></div>
 
 [toc]
 
