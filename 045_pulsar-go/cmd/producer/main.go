@@ -41,16 +41,15 @@ func main() {
 	hostname, _ := os.Hostname()
 	producer, err := client.CreateProducer(pulsar.ProducerOptions{
 		Topic: "my-topic-2",
-		Name:  "pulsar-demo-producer", // producer name
+		Name:  "pulsar-demo-producer",
 		Properties: map[string]string{
 			"host":    hostname,
 			"ip":      "127.0.0.1",
 			"srvName": "pulsar-producer",
 			"time":    time.Now().Local().Format("2006-01-02 15:04:05"),
 		},
-		SendTimeout:             time.Second * 1,
-		DisableBlockIfQueueFull: false,
-		DisableBatching:         true,
+		SendTimeout:     time.Second * 1,
+		DisableBatching: true,
 	})
 	if err != nil {
 		err = errors.Wrap(err, "new pulsar producer error")
@@ -72,6 +71,12 @@ func main() {
 			log.Printf("Published message: %v", msgId)
 			fmt.Fprintf(w, "Published message: %v", msgId)
 		}
+
+		//
+		if err = producer.Flush(); err != nil {
+			log.Printf("flush message [msgID = %v ] error: %s", msgId, err.Error())
+		}
+
 	})
 
 	err = http.ListenAndServe(":"+strconv.Itoa(webPort), nil)

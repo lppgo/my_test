@@ -42,7 +42,7 @@ func main() {
 	hostname, _ := os.Hostname()
 	msgCh := make(chan pulsar.ConsumerMessage, 10000)
 	consumer, err := client.Subscribe(pulsar.ConsumerOptions{
-		Topics:           topics,
+		Topics:           topics, // consumer订阅单topic可以保证消息的顺序，但订阅多个topic不能保证消息的顺序
 		Name:             "pulsar-consumer",
 		SubscriptionName: "pulsar-consumer-subscribe-1",
 		Properties: map[string]string{
