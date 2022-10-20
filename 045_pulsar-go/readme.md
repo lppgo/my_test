@@ -119,3 +119,27 @@ fmt.Println("Published message")
 // 压测
 echo "GET http://localhost:8082/produce" | vegeta -cpus=8 attack -rate=500 -connections=10 -duration=10s | tee result.bin | vegeta report
 ```
+
+# 5: pulsar-admin
+
+```go
+./pulsar-admin topics list public/default
+
+pulsarctl --help
+
+pulsarctl -s=http://172.19.0.12:8080 topics list public/default
+
+pulsarctl topics --help
+
+pulsarctl -s=http://172.19.0.12:8080 topics get my-topic-1
+
+
+pulsarctl -s=http://172.19.0.12:8080 topics internal-info my-topic-1
+
+
+
+
+
+
+
+```

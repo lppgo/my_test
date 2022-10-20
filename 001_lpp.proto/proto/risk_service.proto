@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+import "proto/account.proto";
+import "proto/base.proto";
+import "proto/order.proto";
+import "proto/position.proto";
+
+// 
+service RiskService{
+  // -------------  account service ------------- //
+  // 获取账户资金
+  rpc GetAccountCapital(GetAccountCapitalRequest) returns(GetAccountCapitalReply){}
+
+  // -------------  order service ------------- //
+  //   
+  rpc GetParentOrder(GetParentOrderRequest) returns (GetParentOrderReply) {}
+  //   
+  rpc InsertParentOrder(RiskInsertParentOrderRequest) returns (RiskInsertParentOrderReply){}
+  //   
+  rpc CancelParentOrder(RiskCancelParentOrderRequest) returns (RiskCancelParentOrderReply) {}
+
+  // -------------  position service ------------- //
+  // 
+  rpc GetPosition(GetPositionRequest) returns (GetPositionReply) {}
+
+  // -------------  strategy service ------------- //
+  // 
+}
+
+message GetAccountCapitalRequest {
+    string accountId = 1;
+}
+
+message GetAccountCapitalReply {
+  ErrorInfo errorInfo = 1;
+  repeated AccountCapital accountCapitals = 2;
+}
+
+message GetParentOrderRequest{
+  string accountId = 1;
+  string symbol = 2;
+  OrderStatus.Enum orderStatus = 3;
+  string  strategyId = 4;
+}
+
+message  GetParentOrderReply{
+  ErrorInfo errorInfo = 1;
+  repeated ParentOrder parentOrders = 2;
+}
+
+message RiskInsertParentOrderRequest{
+  string parentOrderId = 1;
+  double inputPrice = 2;
+  int32 inputVol = 3;
+  OrderType.Enum orderType = 4;
+  OrderAction.Enum orderAction = 5;
+  string symbol = 6;
+  string accountId = 7;
+  string strategyId = 8;
+  string algoParams = 9;
+  string remark = 10;
+}
+
+message RiskInsertParentOrderReply{
+  ErrorInfo errorInfo = 1;
+  string parentOrderId = 2;
+}
+
+message RiskCancelParentOrderRequest{
+  string parentOrderId = 1;
+  string accountId = 2;
+}
+
+message RiskCancelParentOrderReply{
+  ErrorInfo errorInfo = 1;
+  string parentOrderId = 2;
+}
+
+message GetPositionRequest {
+  string accountId = 1;
+  string symbol = 2;
+  PositionDirection.Enum positionDirection = 3;
+  string strategyId = 4;
+}
+
+message GetPositionReply {
+  ErrorInfo errorInfo = 1;
+  repeated Position positions = 2;
+}

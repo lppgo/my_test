@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+// TODO tick 数据结构
+
+// 股票行情
+message StockTick{
+    string Code=1; // 股票代码
+    int64 Time=2;  // 
+    string Sym=3;  // 唯一标识
+    int32 Date=4;  // 
+    int32 Status=5; // 
+    int32 PreClose=6; // 前一日收盘价
+    int32 Open=7; // 开盘价
+    int32 High=8; // 最高价
+    int32 Low=9;  // 最低价
+    int32 Match=10; // 最新价
+
+    int32 AskPrice1=11; // 卖盘
+    int32 AskPrice2=12;
+    int32 AskPrice3=13;
+    int32 AskPrice4=14;
+    int32 AskPrice5=15;
+    int32 AskPrice6=16;
+    int32 AskPrice7=17;
+    int32 AskPrice8=18;
+    int32 AskPrice9=19;
+    int32 AskPrice10=20;
+
+    int32 AskVol1=21;
+    int32 AskVol2=22;
+    int32 AskVol3=23;
+    int32 AskVol4=24;
+    int32 AskVol5=25;
+    int32 AskVol6=26;
+    int32 AskVol7=27;
+    int32 AskVol8=28;
+    int32 AskVol9=29;
+    int32 AskVol10=30;
+
+    int32 BidPrice1=31; // 买盘
+    int32 BidPrice2=32;
+    int32 BidPrice3=33;
+    int32 BidPrice4=34;
+    int32 BidPrice5=35;
+    int32 BidPrice6=36;
+    int32 BidPrice7=37;
+    int32 BidPrice8=38;
+    int32 BidPrice9=39;
+    int32 BidPrice10=40;
+
+    int32 BidVol1=41;
+    int32 BidVol2=42;
+    int32 BidVol3=43;
+    int32 BidVol4=44;
+    int32 BidVol5=45;
+    int32 BidVol6=46;
+    int32 BidVol7=47;
+    int32 BidVol8=48;
+    int32 BidVol9=49;
+    int32 BidVol10=50;
+
+    int32 NumTrades =51; // 成交笔数
+    int64 Volume=52; // 成交量
+    int64 Turnover=53; // 换手率
+}
+
+// 期货行情
+message FutureTick{
+    int32 Time=1; //
+    string Symbol=2; //
+    double PreClosePrice=3; //
+    double preSettlePrice=4; //
+    double PriceUpLimit=5; //
+    double PriceDownLimit=6; //
+    double OpenPrice=7; //
+    int64 TotalVolume=8; //
+
+    double SellPrice01=11; //
+    double SellPrice02=12;
+    double SellPrice03=13;
+    double SellPrice04=14;
+    double SellPrice05=15;
+
+    int64 SellVolume01=21; //
+    int64 SellVolume02=22;
+    int64 SellVolume03=23;
+    int64 SellVolume04=24;
+    int64 SellVolume05=25;
+
+    double BuyPrice01=31; //
+    double BuyPrice02=32;
+    double BuyPrice03=33;
+    double BuyPrice04=34;
+    double BuyPrice05=35;
+
+    int64 BuyVolume01=41; //
+    int64 BuyVolume02=42;
+    int64 BuyVolume03=43;
+    int64 BuyVolume04=44;
+    int64 BuyVolume05=45;
+
+}

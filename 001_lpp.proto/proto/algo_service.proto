@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+
+
+// 算法服务
+service AlgoService{
+  // 插入母订单
+  rpc InsertParentOrder(AlgoInsertParentOrderRequest) returns (AlgoInsetParentOrderReply){}
+  // 撤销母订单
+  rpc CancelParentOrder(AlgoCancelParentOrderRequest) returns (AlgoCancelParentOrderReply) {}
+  // 获取母订单
+  rpc GetParentOrder(AlgoCancelParentOrderRequest) returns (AlgoCancelParentOrderReply) {}
+  // 获取子订单
+  rpc GetSubOrder(AlgoGetSubOrderRequest) returns (AlgoGetSubOrderReply){}
+}
+
+message AlgoInsertParentOrderRequest{}
+message AlgoInsetParentOrderReply{}
+message AlgoCancelParentOrderRequest{}
+message AlgoCancelParentOrderReply{}
+message AlgoGetSubOrderRequest{}
+message AlgoGetSubOrderReply{}

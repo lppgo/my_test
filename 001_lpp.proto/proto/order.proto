@@ -1,0 +1,151 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+// 订单状态
+message OrderStatus {
+  enum Enum {
+    UNKNOW = 0; //
+    CREATE = 1; //
+    LOCAL = 2; //
+    START = 3; //
+    TRIGGERED = 4; //
+    PLACED = 5; //
+    PARTIAL = 6; //
+    FILLED = 7; //
+    CANCELED = 8; //
+    ERROR = 9; //
+    EXPIRED = 10; //
+    PENDING_CANCEL = 11; //
+  }
+}
+
+// 订单类型
+message OrderType {
+  enum Enum {
+    UNKNOW = 0; //
+    LIMIT = 1; //
+    MARKET = 2; //
+  }
+}
+
+// 订单行为
+message OrderAction {
+  enum Enum {
+    UNKNOW = 0; //
+    BUY_TO_CLOSE = 1; //
+    BUY_TO_CLOSE_TODAY = 2; //
+    BUY_TO_CLOSE_YESTERDAY = 3; //
+    BUY_TO_OPEN = 4; //
+
+    SELL_TO_CLOSE = 5; //
+    SELL_TO_CLOSE_TODAY = 6; //
+    SELL_TO_CLOSE_YESTERDAY = 7; //
+    SELL_TO_OPEN = 8; //
+  }
+}
+
+// 
+message HedgeFlag {
+  enum Enum {
+    UNKNOW = 0; //
+    SPECULATIVE = 1; //
+    ARBITRAGE = 2; //
+    HEDGING = 3; //
+  }
+}
+
+// 订单错误类型
+message OrderErrorType {
+  enum Enum {UNKNOW = 0;
+    INPUT_PRICE_ERROR = 1; //
+    MARKET_QUOTE_ERROR = 2; //
+    ACCOUNT_NOT_SUPPORT = 3; //
+    CONTRACT_CODE_ERROR = 4; //
+    ORDER_TYPE_ERROR = 5; //
+    ORDER_ACTION_ERROR = 6; //
+    INPUT_VOL_ERROR = 7; //
+    ACCOUNT_NOT_SET = 8; //
+    STRATEGY_NOT_START = 9; //
+    ACCOUNT_NOT_LOGIN_IN = 10; //
+    EXCHANGE_NOT_OPEN = 11; //
+    UNSUPPORT_TYPE = 12; //
+    POSITION_NOT_AVAILABLE = 13; //
+    FUND_NOT_AVAILABLE = 14; //
+    LOCAL_ID_EXIST = 15; //
+  }
+}
+
+// 
+message ParentOrder {
+  string parentOrderId = 1; //
+  OrderStatus.Enum orderStatus = 2; //
+  int64 insertTime = 3; //
+  int32 filledQuantity = 4; //
+  double inputPrice = 5; //
+  int32 inputVol = 6; //
+  OrderType.Enum orderType = 7; //
+  OrderAction.Enum orderAction = 8; //
+  int64 latestUpdateTime = 9; //
+  int32 errorId = 10; //
+  string errorMsg = 11; //
+  string symbol = 12; //
+  string accountId = 13; //
+  string strategyId = 14; //
+  double avgPrice = 15; //
+  string algoParams = 16; //
+  string remark = 17; //
+}
+
+// 
+message SubOrder{
+  string parentOrderId = 1; //
+  OrderStatus.Enum orderStatus = 2; //
+  int64 insertTime = 3; //
+  int32 filledQuantity = 4; //
+  double inputPrice = 5; //
+  int32 inputVol = 6; //
+  OrderType.Enum orderType = 7; //
+  OrderAction.Enum orderAction = 8; //
+  int64 latestUpdateTime = 9; //
+  int32 errorId = 10; //
+  string errorMsg = 11; //
+  string symbol = 12; //
+  string accountId = 13; //
+  string strategyId = 14; //
+  double avgPrice = 15; //
+  string remark = 16; //
+  string subOrderId = 17; //
+}
+
+// 
+message OrderDeal {
+  int64 dealTime = 1; //
+  double dealPrice = 2; //
+  int32 filledQuantity = 3; //
+  string subOrderId = 4; //
+}
+
+// 
+message OrderUpdateReason{
+  enum Enum{
+    UNKNOW = 0; //
+    STATUS_CHANGE = 1; //
+    DEAL = 2; //
+  }
+}
+
+// 母单更新应答
+message ParentOrderUpdateResponse{
+  OrderUpdateReason.Enum orderUpdateReason = 1;
+  ParentOrder parentOrder = 2;
+}
+
+// 子单更新应答
+message SubOrderUpdateResponse{
+  OrderUpdateReason.Enum orderUpdateReason = 1;
+  SubOrder subOrder = 2;
+  OrderDeal orderDeal = 3;
+}

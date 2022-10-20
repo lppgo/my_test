@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+// 账户类型
+message AccountType {
+  enum Enum {
+    UNKNOW = 0; // unkonw
+    STOCK = 1;  // 股票
+    FUTURE = 2; // 期货
+    MARGIN = 3; // 两融(融资融券)
+    OPTION = 4; // 期权
+  }
+}
+
+// 股票类型
+message StockType {
+  enum Enum {
+    UNKNOW = 0;  // 
+    STOCK_A = 1;  // A股 
+    STOCK_B = 2;  // B
+    STOCK_SCIENCE = 3;  // 科创
+    FUND = 4;  // 基金
+    INDEX = 5;  // 指数
+    STOCK_H = 6;  // H
+  }
+}
+
+// 账户环境类型
+message AccountEnvType {
+  enum Enum {
+    UNKNOW = 0; // unkonw
+    REAL = 1; // 实盘
+    SIMULATION = 2; // 仿真
+  }
+}
+
+// 账户基本信息
+message AccountBasic {
+  string accountId = 1; // 
+  string password = 2; // 
+  string name = 3; // 
+  string broker = 4; // 券商,经纪商
+  bool enable = 5; // 
+  AccountType.Enum accountType = 6; // 
+  AccountEnvType.Enum accountEnvType = 7; // 
+}
+
+// 账户资金
+message AccountCapital {
+  double availableCapital = 1; // 
+  double occuptionMargin = 2;  // 占用保证金
+  int64 timeStamp = 3; // 
+  double marketValue = 4;//股票市值
+  double openPl = 5; // 浮动盈亏
+  double fronzenMargin = 6; // 冻结资金
+  double commission = 7; // 手续费(all)
+  double transfer = 8; // 过户费 
+  double stamp = 9; // 印花税
+  string accountId = 10; //
+}
+
+// 股票佣金
+message StockCommission {
+  StockType.Enum stockType = 1; //
+  double buyCharge = 2; //
+  double sellCharge = 3; //
+  double buyMin = 4; //
+  double sellMin = 5; //
+  double buyStamp = 6; //
+  double sellStamp = 7; //
+  double buyTransfer = 8; //
+  double sellTransfer = 9; //
+  string accountId = 10; //
+}

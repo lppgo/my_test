@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+message ErrorInfo {
+  int32 errorId = 1;  // 
+  string errorMsg = 2; // 
+}

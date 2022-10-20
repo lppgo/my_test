@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+
+//
+service QuoteService{
+    // 
+    rpc GetQuote(GetQuoteRequest) returns (GetQuoteReply) {}
+}
+
+message GetQuoteRequest{}
+message GetQuoteReply{}

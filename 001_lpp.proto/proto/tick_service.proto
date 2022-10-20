@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+import "proto/tick.proto";
+
+
+// TODO  TickService ...
+// 行情服务
+service TickService {
+    // 获取实时行情数据
+    rpc GetRealTimeTick(RealTimeTickRequest)returns(RealTimeTickReplay);
+}
+
+message RealTimeTickRequest{
+
+}
+
+message RealTimeTickReplay{
+    StockTick Data=1;
+}

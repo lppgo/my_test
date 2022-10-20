@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+//
+message PositionDirection {
+  enum Enum {
+    UNKNOW = 0; //
+    LONG = 1; //
+    SHORT = 2; //
+  }
+}
+
+//
+message PositionChannel {
+  enum Enum {
+    UNKNOW = 0; //
+    CONNECT = 1; //
+    QFII = 2; //
+    INNER = 3; //
+  }
+}
+
+//
+message Position {
+  int32 yesterdayVol = 1; //
+  int32 todayVol = 2; //
+  double occuptionMargin = 3; //
+  double positionAvgPrice = 4; //
+  double openPl = 5; //
+  int32 allQuantity = 6; //
+  PositionDirection.Enum positionDirection = 7; //
+  int32 availableQuantity = 8; //
+  string symbol = 9; //
+  int32 frozenQuantity = 10; //
+  int64 createTime = 11; //
+  string accountId = 12; //
+  string strategyId = 13; //
+  PositionChannel.Enum positionChannel = 14; //
+}
+
+

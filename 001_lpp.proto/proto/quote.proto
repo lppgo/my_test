@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+// 
+message QuoteCycleType{
+  enum Enum{
+    UNKNOW = 0; //
+    DAY = 1; //
+    ONE_MINUTE = 2; //
+    FIVE_MINUTE = 3; //
+    TICK = 4; //
+  }
+}
+
+// 
+message DepthMDItem{
+  double price = 1; //
+  int64 vol = 2; //
+}
+
+// 
+message TickQuote{
+  repeated DepthMDItem bidArray = 1; //
+  repeated DepthMDItem askArray = 2; //
+  string symbol = 3; //
+  double preSettlementPrice = 4; //
+  double latestPrice = 5; //
+  double latestVol = 6; //
+  double yesterdayClosePrice = 7; //
+  double upperLimitPrice = 8; //
+  double lowerLimitPrice = 9; //
+  double todayOpen = 10; //
+  double todayHigh = 11; //
+  double todayLow = 12; //
+  double todayClose = 13; //
+  double amount = 14; //
+  double preOpenInterest = 15; //
+  double openInterest = 16; //
+  double settlementPrice = 17; //
+}
+
+// 
+message BarQuote{
+  int64 time = 1; //
+  string symbol = 2; //
+  double close = 3; //
+  double high = 4; //
+  double low = 5; //
+  double open = 6; //
+  double volumn = 7; //
+  QuoteCycleType quoteCycleType = 8; //
+}

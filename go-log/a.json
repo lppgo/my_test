@@ -1,0 +1,94 @@
+{
+  "_index": "srv-b-log-2021.12",
+  "_type": "_doc",
+  "_id": "rrRG-30B5z_vKT1vaiNd",
+  "_version": 1,
+  "_score": 1,
+  "_source": {
+    "level": "info",
+    "msg": "logger two ",
+    "ecs": {
+      "version": "1.12.0"
+    },
+    "host": "914213f24ffc",
+    "ts": "2021-12-27 17:43:54.338",
+    "log": {
+      "file": {
+        "path": "/mnt/e/goProject002/go-elk/go-elk-20211227-log.log"
+      },
+      "offset": 79688
+    },
+    "@timestamp": "2021-12-27T09:43:54.638Z",
+    "logger": "go-elk",
+    "agent": {
+      "type": "filebeat",
+      "name": "914213f24ffc",
+      "hostname": "914213f24ffc",
+      "id": "07b89d80-ad53-431e-aac9-c48ddecb87de",
+      "version": "7.16.2",
+      "ephemeral_id": "28536315-5bed-415c-afd3-171a3158270f"
+    },
+    "input": {
+      "type": "log"
+    },
+    "@version": "1",
+    "tags": ["srvB"],
+    "caller": "go-elk/main.go:34"
+  },
+  "fields": {
+    "msg": ["logger two "],
+    "agent.version.keyword": ["7.16.2"],
+    "input.type.keyword": ["log"],
+    "logger": ["go-elk"],
+    "tags.keyword": ["srvB"],
+    "ts.keyword": ["2021-12-27 17:43:54.338"],
+    "agent.hostname.keyword": ["914213f24ffc"],
+    "agent.type": ["filebeat"],
+    "ecs.version.keyword": ["1.12.0"],
+    "host": ["914213f24ffc"],
+    "@version": ["1"],
+    "agent.name": ["914213f24ffc"],
+    "host.keyword": ["914213f24ffc"],
+    "log.file.path.keyword": [
+      "/mnt/e/goProject002/go-elk/go-elk-20211227-log.log"
+    ],
+    "agent.type.keyword": ["filebeat"],
+    "agent.ephemeral_id.keyword": ["28536315-5bed-415c-afd3-171a3158270f"],
+    "level": ["info"],
+    "agent.name.keyword": ["914213f24ffc"],
+    "agent.id.keyword": ["07b89d80-ad53-431e-aac9-c48ddecb87de"],
+    "input.type": ["log"],
+    "@version.keyword": ["1"],
+    "log.offset": [79688],
+    "agent.hostname": ["914213f24ffc"],
+    "msg.keyword": ["logger two "],
+    "tags": ["srvB"],
+    "caller": ["go-elk/main.go:34"],
+    "caller.keyword": ["go-elk/main.go:34"],
+    "@timestamp": ["2021-12-27T09:43:54.638Z"],
+    "agent.id": ["07b89d80-ad53-431e-aac9-c48ddecb87de"],
+    "level.keyword": ["info"],
+    "ecs.version": ["1.12.0"],
+    "logger.keyword": ["go-elk"],
+    "log.file.path": ["/mnt/e/goProject002/go-elk/go-elk-20211227-log.log"],
+    "agent.ephemeral_id": ["28536315-5bed-415c-afd3-171a3158270f"],
+    "agent.version": ["7.16.2"],
+    "ts": ["2021-12-27 17:43:54.338"]
+  }
+}
+
+/* 
+_source.ecs.version
+_source.host
+_source.log.offset
+_source.agent.type
+_source.agent.name
+_source.agent.hostname
+_source.agent.id
+_source.agent.version
+_source.agent.ephemeral_id
+_source.input.type
+
+
+
+*/

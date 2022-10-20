@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+
+// 
+service TradeService{
+  // 插入子订单
+  rpc InsertSubOrder(InsertSubOrderRequest) returns (InsertSubOrderReply) {}
+  // 撤销子订单
+  rpc CancelSubOrder(CancelSubOrderRequest) returns (CancelSubOrderReply) {}
+  // 获取子订单
+  rpc GetSubOrder(TradeGetSubOrderRequest) returns (TradeGetSubOrderReply){}
+}
+
+
+message InsertSubOrderRequest{}
+message InsertSubOrderReply{}
+
+message CancelSubOrderRequest{}
+message CancelSubOrderReply{}
+
+message TradeGetSubOrderRequest{}
+message TradeGetSubOrderReply{}

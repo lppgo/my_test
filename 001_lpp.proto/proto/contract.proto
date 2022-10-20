@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "go_proto/pb";
+
+// 合约类型
+message ContractType {
+  enum Enum{
+    UNKNOW = 0;  // 
+    FUTURE = 1;   // 
+    OPTION = 2;  // 
+    STOCK = 3; // 
+    STOCKOPTION = 4; // 
+    EAC = 5; // 
+    INDEX = 6; // 
+  }
+}
+
+// 交易所
+message Exchange{
+  enum Enum{
+    UNKNOW = 0; // 
+    DCE = 1; // 
+    SHFE = 2; // 
+    CZCE = 3; // 
+    CFFEX = 4; // 
+    SSE = 5; // 
+    SZSE = 6; // 
+    INE = 7; // 
+  }
+}
+
+// 合约信息
+message Contract{
+  ContractType.Enum contractType = 1; // 
+  string contractName = 2; // 
+  string contractCode = 3; // 
+  Exchange.Enum exchange = 4; // 
+}
