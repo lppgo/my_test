@@ -18,14 +18,14 @@ const (
 	GB = 1024 * MB
 )
 
-func main() {
+func main_600() {
 	DiskCheck()
 	OSCheck()
 	CPUCheck()
 	RAMCheck()
 }
 
-//服务器硬盘使用量
+// 服务器硬盘使用量
 func DiskCheck() {
 	fmt.Println()
 	fmt.Println("----------------服务器硬盘使用量:----------------")
@@ -38,14 +38,14 @@ func DiskCheck() {
 	fmt.Printf("Free space: %dMB (%dGB) / %dMB (%dGB) | Used: %d%%\n", usedMB, usedGB, totalMB, totalGB, usedPercent)
 }
 
-//OS
+// OS
 func OSCheck() {
 	fmt.Println()
 	fmt.Println("----------------OS:----------------")
 	fmt.Printf("goOs:%s,compiler:%s,numCpu:%d,version:%s,numGoroutine:%d\n", runtime.GOOS, runtime.Compiler, runtime.NumCPU(), runtime.Version(), runtime.NumGoroutine())
 }
 
-//CPU 使用量
+// CPU 使用量
 func CPUCheck() {
 	fmt.Println()
 	fmt.Println("----------------CPUCheck:----------------")
@@ -67,7 +67,7 @@ func CPUCheck() {
 	fmt.Println(cores)
 }
 
-//内存使用量
+// 内存使用量
 func RAMCheck() {
 	fmt.Println()
 	fmt.Println("----------------RAMCheck:----------------")

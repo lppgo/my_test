@@ -41,19 +41,19 @@ func main() {
 	// producer
 	hostname, _ := os.Hostname()
 	producer, err := client.CreateProducer(pulsar.ProducerOptions{
-		// Topic: "my-topic-1",
+		Topic: "my-topic-1",
 		// Topic: "my-topic-2",
-		Topic: "my-topic-3",
-		// Name: "pulsar-producer-1",
+		// Topic: "my-topic-3",
+		Name: "pulsar-producer-1",
 		// Name: "pulsar-producer-2",
-		Name: "pulsar-producer-3",
+		// Name: "pulsar-producer-3",
 		Properties: map[string]string{
-			"host": hostname,
-			"ip":   "127.0.0.1",
-			// "srvName": "pulsar-producer-1",
+			"host":    hostname,
+			"ip":      "127.0.0.1",
+			"srvName": "pulsar-producer-1",
 			// "srvName": "pulsar-producer-2",
-			"srvName": "pulsar-producer-3",
-			"time":    time.Now().Local().Format("2006-01-02 15:04:05"),
+			// "srvName": "pulsar-producer-3",
+			"time": time.Now().Local().Format("2006-01-02 15:04:05"),
 		},
 		SendTimeout: time.Second * 5,
 		// Schema: &pulsar.JSONSchema{},

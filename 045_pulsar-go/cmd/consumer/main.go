@@ -39,12 +39,12 @@ func main() {
 	// consumer
 	topics := []string{
 		"my-topic-1",
-		"my-topic-2",
-		"my-topic-3",
+		// "my-topic-2",
+		// "my-topic-3",
 	}
 	fmt.Println("consumer1 start ....")
-	log.Println("consumer1 start ....")
 	consumer1(client, topics)
+	// log.Println("consumer2 start ....")
 	// consumer2(client, topics)
 
 	log.Println("consumer1 end ....")
@@ -71,7 +71,7 @@ func consumer1(client pulsar.Client, topics []string) {
 	consumer, err := client.Subscribe(pulsar.ConsumerOptions{
 		Topics:           topics, // consumer订阅单topic可以保证消息的顺序，但订阅多个topic不能保证消息的顺序
 		Name:             "pulsar-consumer",
-		SubscriptionName: "pulsar-consumer-subscribe-1",
+		SubscriptionName: "pulsar-consumer-subscribe-2",
 		Properties: map[string]string{
 			"host":    hostname,
 			"ip":      "127.0.0.1",
@@ -113,6 +113,7 @@ func consumer1(client pulsar.Client, topics []string) {
 }
 
 // func consumer2(client pulsar.Client, topics []string) {
+//  log.Println("consumer2 ...")
 // 	hostname, _ := os.Hostname()
 // 	msgCh := make(chan pulsar.ConsumerMessage, 5000)
 // 	consumer, err := client.Subscribe(pulsar.ConsumerOptions{

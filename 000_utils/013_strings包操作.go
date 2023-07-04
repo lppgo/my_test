@@ -8,7 +8,7 @@ import (
 )
 
 // strings 库对字符串操作具有很高的效率
-func main() {
+func main_13() {
 	// Compare()
 	// EqualFold()
 

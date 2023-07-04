@@ -48,18 +48,17 @@ func hash() {
 	fmt.Printf("% x", h.Sum(nil))
 
 	//import "crypto/sha1"
-	h := sha1.New()
+	h = sha1.New()
 	io.WriteString(h, "His money is twice tainted: 'taint yours and 'taint mine.")
 	fmt.Printf("% x", h.Sum(nil))
 
 	//import "crypto/md5"
-	h := md5.New()
+	h = md5.New()
 	io.WriteString(h, "需要加密的密码")
 	fmt.Printf("%x", h.Sum(nil))
 }
 
-//
-func hashSalt() {
+func hashSalt() string {
 	//import "crypto/md5"
 	//假设用户名abc，密码123456
 	h := md5.New()
@@ -79,9 +78,12 @@ func hashSalt() {
 	io.WriteString(h, pwmd5)
 
 	last := fmt.Sprintf("%x", h.Sum(nil))
+	fmt.Println(last)
+	return last
 }
 
 func crypt() {
-	dk := scrypt.Key([]byte("some password"), []byte(salt), 16384, 8, 1, 32)
-	fmt.Println(dk)
+	salt := hashSalt()
+	dk, err := scrypt.Key([]byte("some password"), []byte(salt), 16384, 8, 1, 32)
+	fmt.Println(dk, err)
 }

@@ -18,7 +18,7 @@ func CheckPasswordHash(password, hash string) bool {
 	return err == nil
 }
 
-func main() {
+func main_() {
 	password := "secret"
 	hash, _ := HashPassword(password) // ignore error for the sake of simplicity
 
